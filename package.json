@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon -e js,pug,scss"
   },
   "bugs": {
     "url": "https://github.com/defrostingk/220301-zoom/issues"
@@ -21,6 +21,8 @@
     "@babel/core": "^7.17.5",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
+    "connect-livereload": "^0.6.1",
+    "livereload": "^0.9.3",
     "nodemon": "^2.0.15"
   },
   "dependencies": {

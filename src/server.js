@@ -3,7 +3,6 @@ import WebSocket from "ws";
 import express from "express";
 import livereload from "livereload";
 import connectLivereload from "connect-livereload";
-import { handle } from "express/lib/application";
 
 const liveReloadServer = livereload.createServer({
   exts: ["pug", "js", "scss"],
@@ -28,5 +27,10 @@ const handelListen = () => console.log(`Listening on http://localhost:${PORT}`);
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
+
+function handleConnection(socket) {
+  console.log(socket);
+}
+wss.on("connection", handleConnection);
 
 server.listen(PORT, handelListen);

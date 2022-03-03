@@ -1,5 +1,5 @@
 import http from "http";
-import WebSocket from "ws";
+import SocketIO from "socket.io";
 import express from "express";
 import livereload from "livereload";
 import connectLivereload from "connect-livereload";
@@ -22,32 +22,36 @@ app.use("/public", express.static(__dirname + "/public"));
 app.get("/", (req, res) => res.render("home"));
 app.get("/*", (req, res) => res.redirect("/"));
 
-const PORT = 3000;
-const handelListen = () => console.log(`Listening on http://localhost:${PORT}`);
+const httpServer = http.createServer(app);
+const wsServer = SocketIO(httpServer);
 
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
-
-const sockets = [];
-
-wss.on("connection", (socket) => {
-  sockets.push(socket);
-  socket["nickname"] = "Anonymous";
-  console.log("Connected to Browser ✅");
-  socket.on("close", () => console.log("Disconnected from the Browser ❌"));
-  socket.on("message", (msg) => {
-    const message = JSON.parse(msg);
-    switch (message.type) {
-      case "new_message":
-        sockets.forEach((aSocket) =>
-          aSocket.send(`${socket.nickname}: ${message.payload}`)
-        );
-        break;
-      case "nickname":
-        socket["nickname"] = message.payload;
-        break;
-    }
-  });
+wsServer.on("connection", (socket) => {
+  console.log(socket);
 });
 
-server.listen(PORT, handelListen);
+// const sockets = [];
+
+// const wss = new WebSocket.Server({ server });
+// wss.on("connection", (socket) => {
+//   sockets.push(socket);
+//   socket["nickname"] = "Anonymous";
+//   console.log("Connected to Browser ✅");
+//   socket.on("close", () => console.log("Disconnected from the Browser ❌"));
+//   socket.on("message", (msg) => {
+//     const message = JSON.parse(msg);
+//     switch (message.type) {
+//       case "new_message":
+//         sockets.forEach((aSocket) =>
+//           aSocket.send(`${socket.nickname}: ${message.payload}`)
+//         );
+//         break;
+//       case "nickname":
+//         socket["nickname"] = message.payload;
+//         break;
+//     }
+//   });
+// });
+
+const PORT = 3000;
+const handelListen = () => console.log(`Listening on http://localhost:${PORT}`);
+httpServer.listen(PORT, handelListen);

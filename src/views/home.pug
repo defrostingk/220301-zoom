@@ -11,14 +11,16 @@ html(lang="en")
             h1 ZZoom
         main 
             div#welcome
-                form
+                form#name
+                    input(placeholder="nick name", required, type="text")
+                    button Save
+                form#enter-room
                     input(placeholder="room name", required, type="text")
                     button Enter Room
-            
             div#room
                 h3
                 ul
-                form 
+                form#msg
                     input(placeholder="message", required, type="text")
                     button Send
                     

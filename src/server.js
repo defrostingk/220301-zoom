@@ -25,7 +25,7 @@ app.get("/*", (req, res) => res.redirect("/"));
 const httpServer = http.createServer(app);
 const wsServer = SocketIO(httpServer);
 
-const publicRooms = () => {
+function publicRooms() {
   const {
     sockets: {
       adapter: { sids, rooms },
@@ -38,7 +38,11 @@ const publicRooms = () => {
     }
   });
   return publicRooms;
-};
+}
+
+function countRoom(roomName) {
+  return wsServer.sockets.adapter.rooms.get(roomName)?.size;
+}
 
 wsServer.on("connection", (socket) => {
   socket["nickname"] = "Anonymous";
@@ -50,13 +54,13 @@ wsServer.on("connection", (socket) => {
   });
   socket.on("enter_room", (roomName, done) => {
     socket.join(roomName);
-    done();
-    socket.to(roomName).emit("welcome", socket.nickname);
+    done(countRoom(roomName));
+    socket.to(roomName).emit("welcome", socket.nickname, countRoom(roomName));
     wsServer.sockets.emit("room_change", publicRooms());
   });
   socket.on("disconnecting", () => {
     socket.rooms.forEach((room) =>
-      socket.to(room).emit("bye", socket.nickname)
+      socket.to(room).emit("bye", socket.nickname, countRoom(room) - 1)
     );
   });
   socket.on("disconnect", () => {
@@ -69,5 +73,7 @@ wsServer.on("connection", (socket) => {
 });
 
 const PORT = 3000;
-const handelListen = () => console.log(`Listening on http://localhost:${PORT}`);
+function handelListen() {
+  console.log(`Listening on http://localhost:${PORT}`);
+}
 httpServer.listen(PORT, handelListen);

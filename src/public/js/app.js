@@ -10,13 +10,18 @@ let myStream;
 let muted = false;
 let cameraOff = false;
 
+getMedia();
+
 async function getDevices() {
+  await getCameras();
+  await getMikes();
+}
+
+async function getCameras() {
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
     const cameras = devices.filter((device) => device.kind === "videoinput");
     const currentCamera = myStream.getVideoTracks()[0];
-    const mikes = devices.filter((device) => device.kind === "audioinput");
-    const currentMike = myStream.getAudioTracks()[0];
 
     cameras.forEach((camera) => {
       const option = document.createElement("option");
@@ -27,6 +32,16 @@ async function getDevices() {
       }
       camerasSelect.appendChild(option);
     });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function getMikes() {
+  try {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const mikes = devices.filter((device) => device.kind === "audioinput");
+    const currentMike = myStream.getAudioTracks()[0];
 
     mikes.forEach((mike) => {
       const option = document.createElement("option");
@@ -76,8 +91,6 @@ async function getMedia(deviceId) {
     console.log(e);
   }
 }
-
-getMedia();
 
 function handleMuteClick() {
   const curState = myStream.getAudioTracks()[0].enabled;

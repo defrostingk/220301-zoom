@@ -8,6 +8,7 @@ import connectLivereload from "connect-livereload";
 const liveReloadServer = livereload.createServer({
   exts: ["pug", "js", "scss"],
 });
+
 liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
     liveReloadServer.refresh("/");

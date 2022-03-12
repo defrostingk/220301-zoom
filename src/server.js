@@ -8,7 +8,6 @@ import connectLivereload from "connect-livereload";
 const liveReloadServer = livereload.createServer({
   exts: ["pug", "js", "scss"],
 });
-
 liveReloadServer.server.once("connection", () => {
   setTimeout(() => {
     liveReloadServer.refresh("/");
@@ -36,9 +35,13 @@ instrument(wsServer, {
 });
 
 wsServer.on("connection", (socket) => {
-  socket.on("join_room", (roomName) => {
+  socket.on("join_room", (nickName, roomName) => {
     socket.join(roomName);
     socket.to(roomName).emit("welcome");
+    socket.to(roomName).emit("partner_header", nickName);
+  });
+  socket.on("header", (nickName, roomName) => {
+    socket.to(roomName).emit("header", nickName);
   });
   socket.on("offer", (offer, roomName) => {
     socket.to(roomName).emit("offer", offer);

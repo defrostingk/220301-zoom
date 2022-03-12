@@ -1,5 +1,6 @@
 const socket = io();
 
+const header = document.querySelector("header");
 const myFace = document.getElementById("myFace");
 const peerFace = document.getElementById("peerFace");
 const muteBtn = document.getElementById("mute");
@@ -13,6 +14,7 @@ call.hidden = true;
 let myStream;
 let muted = false;
 let cameraOff = false;
+let nickName;
 let roomName;
 let myPeerConnection;
 let myDataChannel;
@@ -77,7 +79,6 @@ async function getMedia(deviceId) {
   const mikes = devices
     .filter((device) => device.kind === "audioinput")
     .map((device) => device.deviceId);
-
   const initialConstrains = {
     audio: true,
     video: { facingMode: "user" },
@@ -155,18 +156,40 @@ async function initCall() {
   makeConnection();
 }
 
+function setRoomName() {
+  const headerTitle = header.querySelector("h1");
+  headerTitle.innerText = `${roomName}`;
+}
+
+function setCallPartner(myNickName) {
+  const callPartner = header.querySelector("h3");
+  callPartner.innerText = `Call with ${myNickName}`;
+}
+
 async function handleWelcomeSubmit(event) {
   event.preventDefault();
-  const input = welcomeForm.querySelector("input");
+  const nickNameInput = document.getElementById("nickName");
+  const roomNameInput = document.getElementById("roomName");
+  nickName = nickNameInput.value;
+  roomName = roomNameInput.value;
   await initCall();
-  socket.emit("join_room", input.value);
-  roomName = input.value;
-  input.value = "";
+  setRoomName();
+  socket.emit("join_room", nickName, roomName);
+  nickNameInput.value = "";
+  roomNameInput.value = "";
 }
 
 welcomeForm.addEventListener("submit", handleWelcomeSubmit);
 
 // Socket Code
+
+socket.on("partner_header", (partnerNickName) => {
+  setCallPartner(partnerNickName);
+  socket.emit("header", nickName, roomName);
+});
+socket.on("header", (myNickName) => {
+  setCallPartner(myNickName);
+});
 
 socket.on("welcome", async () => {
   myDataChannel = myPeerConnection.createDataChannel("chat");

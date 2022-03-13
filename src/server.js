@@ -37,11 +37,15 @@ instrument(wsServer, {
 wsServer.on("connection", (socket) => {
   socket.on("join_room", (nickName, roomName) => {
     socket.join(roomName);
-    socket.to(roomName).emit("welcome");
     socket.to(roomName).emit("partner_header", nickName);
+    socket.to(roomName).emit("start_chat", nickName);
+    socket.to(roomName).emit("welcome");
   });
   socket.on("header", (nickName, roomName) => {
     socket.to(roomName).emit("header", nickName);
+  });
+  socket.on("join_chat", (nickName, roomName) => {
+    socket.to(roomName).emit("join_chat", nickName);
   });
   socket.on("offer", (offer, roomName) => {
     socket.to(roomName).emit("offer", offer);

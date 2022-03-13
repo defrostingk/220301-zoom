@@ -22,15 +22,15 @@ html(lang="en")
                     button#mute Mute
                     button#camera Turn Camera Off
                     video#peerFace(autoplay, playsinline, width="400", height="400")
+                    div#device
+                        select#cameras
+                        select#mikes
                 div#chat
                     h3 Chat
-                    u1
-                    form#message
-                        input(placeholder="message", required, type="test")
+                    ul
+                    form
+                        input#message(placeholder="message", required, type="test")
                         button Send
-                div#device
-                    select#cameras
-                    select#mikes
 
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")

@@ -34,18 +34,46 @@ instrument(wsServer, {
   auth: false,
 });
 
+function publicRooms() {
+  const {
+    sockets: {
+      adapter: { sids, rooms },
+    },
+  } = wsServer;
+  const publicRooms = [];
+  rooms.forEach((_, key) => {
+    if (sids.get(key) === undefined) {
+      publicRooms.push(key);
+    }
+  });
+  return publicRooms;
+}
+
+function countUserInRoom(roomName) {
+  return wsServer.sockets.adapter.rooms.get(roomName)?.size;
+}
+
 wsServer.on("connection", (socket) => {
-  socket.on("join_room", (nickName, roomName) => {
+  socket["partnerNickname"] = "Anonymous";
+  socket["nickname"] = "Anonymous";
+  wsServer.sockets.emit("update_rooms", publicRooms());
+  socket.on("join_room", (nickname, roomName) => {
+    socket.nickname = nickname;
     socket.join(roomName);
-    socket.to(roomName).emit("partner_header", nickName);
-    socket.to(roomName).emit("start_chat", nickName);
-    socket.to(roomName).emit("welcome");
+    socket.to(roomName).emit("set_header", nickname);
+    socket.to(roomName).emit("start_chat", nickname);
+    socket.to(roomName).emit("send_offer");
+    wsServer.sockets.emit("update_rooms", publicRooms());
   });
-  socket.on("header", (nickName, roomName) => {
-    socket.to(roomName).emit("header", nickName);
+  socket.on("header", (nickname, partnerNickname, roomName) => {
+    socket.partnerNickname = partnerNickname;
+    socket.to(roomName).emit("header", nickname);
   });
-  socket.on("join_chat", (nickName, roomName) => {
-    socket.to(roomName).emit("join_chat", nickName);
+  socket.on("partner_nickname", (partnerNickname) => {
+    socket.partnerNickname = partnerNickname;
+  });
+  socket.on("join_chat", (nickname, roomName) => {
+    socket.to(roomName).emit("join_chat", nickname);
   });
   socket.on("offer", (offer, roomName) => {
     socket.to(roomName).emit("offer", offer);
@@ -55,6 +83,15 @@ wsServer.on("connection", (socket) => {
   });
   socket.on("ice", (ice, roomName) => {
     socket.to(roomName).emit("ice", ice);
+  });
+  socket.on("disconnecting", () => {
+    socket.rooms.forEach((room) => {
+      socket.to(room).emit("leave_chat", socket.nickname);
+      socket.to(room).emit("leave_call");
+    });
+  });
+  socket.on("disconnect", () => {
+    wsServer.sockets.emit("update_rooms", publicRooms());
   });
 });
 

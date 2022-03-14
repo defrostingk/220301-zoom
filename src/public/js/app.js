@@ -14,7 +14,7 @@ call.hidden = true;
 let myStream;
 let muted = true;
 let cameraOff = false;
-let nickName;
+let nickname;
 let roomName;
 let myPeerConnection;
 let myDataChannel;
@@ -161,21 +161,26 @@ function setRoomName() {
   headerTitle.innerText = `${roomName}`;
 }
 
-function setCallPartner(myNickName) {
+function setCallPartner(partnerNickname) {
   const callPartner = header.querySelector("h3");
-  callPartner.innerText = `Call with ${myNickName}`;
+  callPartner.innerText = `Call with ${partnerNickname}`;
+}
+
+function resetCallPartner() {
+  const callPartner = header.querySelector("h3");
+  callPartner.innerText = "";
 }
 
 async function handleWelcomeSubmit(event) {
   event.preventDefault();
-  const nickNameInput = document.getElementById("nickName");
+  const nicknameInput = document.getElementById("nickname");
   const roomNameInput = document.getElementById("roomName");
-  nickName = nickNameInput.value;
+  nickname = nicknameInput.value;
   roomName = roomNameInput.value;
   await initCall();
   setRoomName();
-  socket.emit("join_room", nickName, roomName);
-  nickNameInput.value = "";
+  socket.emit("join_room", nickname, roomName);
+  nicknameInput.value = "";
   roomNameInput.value = "";
 }
 
@@ -202,7 +207,7 @@ function handleChatSubmit(event) {
   const messageInput = document.getElementById("message");
   const message = messageInput.value;
   messageInput.value = "";
-  addMessage(message, nickName);
+  addMessage(message, nickname);
   try {
     myDataChannel.send(message);
   } catch (e) {
@@ -214,34 +219,50 @@ chatForm.addEventListener("submit", handleChatSubmit);
 
 // Socket Code
 
-socket.on("partner_header", (partnerNickName) => {
-  setCallPartner(partnerNickName);
-  socket.emit("header", nickName, roomName);
-});
-socket.on("header", (myNickName) => {
-  setCallPartner(myNickName);
+socket.on("update_rooms", (rooms) => {
+  const roomList = welcome.querySelector("ul");
+  roomList.innerText = "";
+  rooms.forEach((room) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<button>${room}</button>`;
+    roomList.append(li);
+  });
 });
 
-socket.on("start_chat", (partnerNickName) => {
+socket.on("set_header", (partnerNickname) => {
+  console.log(nickname, "set_header");
+  setCallPartner(partnerNickname);
+  socket.emit("header", nickname, partnerNickname, roomName);
+});
+socket.on("header", (myNickname) => {
+  console.log(nickname, "header");
+  setCallPartner(myNickname);
+  socket.emit("partner_nickname", myNickname);
+});
+
+socket.on("start_chat", (partnerNickname) => {
+  console.log(nickname, "start_chat");
   console.log("made data channel");
   myDataChannel = myPeerConnection.createDataChannel("chat");
-  addMessage(`${partnerNickName} arrived!`);
+  addMessage(`${partnerNickname} arrived!`);
   myDataChannel.addEventListener("message", (event) => {
-    addMessage(event.data, partnerNickName);
+    addMessage(event.data, partnerNickname);
   });
-  socket.emit("join_chat", nickName, roomName);
+  socket.emit("join_chat", nickname, roomName);
 });
-socket.on("join_chat", (partnerNickName) => {
+socket.on("join_chat", (partnerNickname) => {
+  console.log(nickname, "join_chat");
   myPeerConnection.addEventListener("datachannel", (event) => {
     myDataChannel = event.channel;
-    addMessage(`${partnerNickName} arrived!`);
+    addMessage(`${partnerNickname} arrived!`);
     myDataChannel.addEventListener("message", (event) => {
-      addMessage(event.data, partnerNickName);
+      addMessage(event.data, partnerNickname);
     });
   });
 });
 
-socket.on("welcome", async () => {
+socket.on("send_offer", async () => {
+  console.log(nickname, "send_offer");
   const offer = await myPeerConnection.createOffer();
   myPeerConnection.setLocalDescription(offer);
   console.log("sent to offer");
@@ -249,6 +270,7 @@ socket.on("welcome", async () => {
 });
 
 socket.on("offer", async (offer) => {
+  console.log(nickname, "offer");
   console.log("received the offer");
   myPeerConnection.setRemoteDescription(offer);
   const answer = await myPeerConnection.createAnswer();
@@ -258,13 +280,31 @@ socket.on("offer", async (offer) => {
 });
 
 socket.on("answer", (answer) => {
+  console.log(nickname, "answer");
   console.log("received the answer");
   myPeerConnection.setRemoteDescription(answer);
 });
 
 socket.on("ice", (ice) => {
+  console.log(nickname, "ice");
   console.log("received candidate");
   myPeerConnection.addIceCandidate(ice);
+});
+
+socket.on("leave_chat", (partnerNickname) => {
+  console.log(nickname, "leave_chat");
+  addMessage(`${partnerNickname} left`);
+});
+
+socket.on("leave_call", () => {
+  console.log(nickname, "leave_call");
+  peerFace.srcObject.getVideoTracks().forEach((track) => {
+    track.stop();
+    peerFace.srcObject.removeTrack(track);
+  });
+  resetCallPartner();
+  makeConnection();
+  socket.emit("join_room", nickname, roomName);
 });
 
 // RTC Code

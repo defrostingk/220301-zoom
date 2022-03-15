@@ -1,32 +1,32 @@
-import http from "http";
-import { Server } from "socket.io";
-import { instrument } from "@socket.io/admin-ui";
-import express from "express";
-import livereload from "livereload";
-import connectLivereload from "connect-livereload";
+import http from 'http';
+import { Server } from 'socket.io';
+import { instrument } from '@socket.io/admin-ui';
+import express from 'express';
+import livereload from 'livereload';
+import connectLivereload from 'connect-livereload';
 
 const liveReloadServer = livereload.createServer({
-  exts: ["pug", "js", "scss"],
+  exts: ['pug', 'js', 'scss'],
 });
-liveReloadServer.server.once("connection", () => {
+liveReloadServer.server.once('connection', () => {
   setTimeout(() => {
-    liveReloadServer.refresh("/");
+    liveReloadServer.refresh('/');
   }, 100);
 });
 
 const app = express();
 app.use(connectLivereload());
 
-app.set("view engine", "pug");
-app.set("views", __dirname + "/views");
-app.use("/public", express.static(__dirname + "/public"));
-app.get("/", (req, res) => res.render("home"));
-app.get("/*", (req, res) => res.redirect("/"));
+app.set('view engine', 'pug');
+app.set('views', __dirname + '/views');
+app.use('/public', express.static(__dirname + '/public'));
+app.get('/', (req, res) => res.render('home'));
+app.get('/*', (req, res) => res.redirect('/'));
 
 const httpServer = http.createServer(app);
 const wsServer = new Server(httpServer, {
   cors: {
-    origin: ["https://admin.socket.io"],
+    origin: ['https://admin.socket.io'],
     credentials: true,
   },
 });
@@ -34,16 +34,16 @@ instrument(wsServer, {
   auth: false,
 });
 
-function publicRooms() {
+function getPublicRooms() {
   const {
     sockets: {
       adapter: { sids, rooms },
     },
   } = wsServer;
-  const publicRooms = [];
+  const publicRooms = {};
   rooms.forEach((_, key) => {
     if (sids.get(key) === undefined) {
-      publicRooms.push(key);
+      publicRooms[key] = countUserInRoom(key);
     }
   });
   return publicRooms;
@@ -53,45 +53,53 @@ function countUserInRoom(roomName) {
   return wsServer.sockets.adapter.rooms.get(roomName)?.size;
 }
 
-wsServer.on("connection", (socket) => {
-  socket["partnerNickname"] = "Anonymous";
-  socket["nickname"] = "Anonymous";
-  wsServer.sockets.emit("update_rooms", publicRooms());
-  socket.on("join_room", (nickname, roomName) => {
+wsServer.on('connection', (socket) => {
+  socket['partnerNickname'] = 'Anonymous';
+  socket['nickname'] = 'Anonymous';
+  wsServer.sockets.emit('update_rooms', getPublicRooms());
+  socket.on('check_room', async (nickname, roomName) => {
+    const cnt = countUserInRoom(roomName) ? countUserInRoom(roomName) + 1 : 1;
+    if (cnt > 2) {
+      socket.emit('is_forbidden', nickname, roomName);
+    } else {
+      socket.emit('is_available', nickname, roomName);
+    }
+  });
+  socket.on('join_room', (nickname, roomName) => {
     socket.nickname = nickname;
     socket.join(roomName);
-    socket.to(roomName).emit("set_header", nickname);
-    socket.to(roomName).emit("start_chat", nickname);
-    socket.to(roomName).emit("send_offer");
-    wsServer.sockets.emit("update_rooms", publicRooms());
+    socket.to(roomName).emit('set_header', nickname);
+    socket.to(roomName).emit('start_chat', nickname);
+    socket.to(roomName).emit('send_offer');
+    wsServer.sockets.emit('update_rooms', getPublicRooms());
   });
-  socket.on("header", (nickname, partnerNickname, roomName) => {
+  socket.on('header', (nickname, partnerNickname, roomName) => {
     socket.partnerNickname = partnerNickname;
-    socket.to(roomName).emit("header", nickname);
+    socket.to(roomName).emit('header', nickname);
   });
-  socket.on("partner_nickname", (partnerNickname) => {
+  socket.on('partner_nickname', (partnerNickname) => {
     socket.partnerNickname = partnerNickname;
   });
-  socket.on("join_chat", (nickname, roomName) => {
-    socket.to(roomName).emit("join_chat", nickname);
+  socket.on('join_chat', (nickname, roomName) => {
+    socket.to(roomName).emit('join_chat', nickname);
   });
-  socket.on("offer", (offer, roomName) => {
-    socket.to(roomName).emit("offer", offer);
+  socket.on('offer', (offer, roomName) => {
+    socket.to(roomName).emit('offer', offer);
   });
-  socket.on("answer", (answer, roomName) => {
-    socket.to(roomName).emit("answer", answer);
+  socket.on('answer', (answer, roomName) => {
+    socket.to(roomName).emit('answer', answer);
   });
-  socket.on("ice", (ice, roomName) => {
-    socket.to(roomName).emit("ice", ice);
+  socket.on('ice', (ice, roomName) => {
+    socket.to(roomName).emit('ice', ice);
   });
-  socket.on("disconnecting", () => {
+  socket.on('disconnecting', () => {
     socket.rooms.forEach((room) => {
-      socket.to(room).emit("leave_chat", socket.nickname);
-      socket.to(room).emit("leave_call");
+      socket.to(room).emit('leave_chat', socket.nickname);
+      socket.to(room).emit('leave_call');
     });
   });
-  socket.on("disconnect", () => {
-    wsServer.sockets.emit("update_rooms", publicRooms());
+  socket.on('disconnect', () => {
+    wsServer.sockets.emit('update_rooms', getPublicRooms());
   });
 });
 

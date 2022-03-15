@@ -11,9 +11,16 @@ html(lang="en")
             h1 ZZoom
             h3 
         main 
-            div#welcome
+            div#saveNickname
                 form
                     input#nickname(placeholder="nickname",required, type="text")
+                    input#mikeOff(type="checkbox")
+                    label(for="mikeOff") Mike Off
+                    input#cameraOff(type="checkbox")
+                    label(for="cameraOff") Camera Off
+                    button Save
+            div#enterRoom
+                form
                     input#roomName(placeholder="room name",required, type="text")
                     button Enter Room
                 h3 Open Rooms
@@ -21,8 +28,8 @@ html(lang="en")
             div#call
                 div#myStream
                     video#myFace(autoplay, playsinline, width="400", height="400", muted)
-                    button#mute Mute
-                    button#camera Turn Camera Off
+                    button#muteBtn Mute
+                    button#cameraBtn Turn Camera Off
                     video#peerFace(autoplay, playsinline, width="400", height="400")
                     div#device
                         select#cameras

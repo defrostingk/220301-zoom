@@ -4,11 +4,15 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css")
+        link(rel="stylesheet", href="/public/css/styles.css")
         title ZZoom
-        link(rel="stylesheet", href="https://unpkg.com/mvp.css")
-    body 
+    body
         header
-            h1 ZZoom
+            a#logo(href="") 
+                i.fa-solid.fa-video.fa-lg
+                label(for="title") ZZoom
+            h1 
             h3 
         main 
             div#saveNickname
@@ -40,6 +44,8 @@ html(lang="en")
                     form
                         input#message(placeholder="message", required, type="test")
                         button Send
+                a(href="") Close
+        footer &copy; #{new Date().getFullYear()} ZZoom
 
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")

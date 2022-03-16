@@ -187,6 +187,8 @@ async function initCall() {
 function setRoomName() {
   const headerTitle = header.querySelector('h1');
   headerTitle.innerText = `${roomName}`;
+  const nicknameHeader = header.querySelector('h3');
+  nicknameHeader.innerText = '';
 }
 
 function setCallPartner(partnerNickname) {

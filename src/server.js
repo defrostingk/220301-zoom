@@ -53,16 +53,40 @@ function countUserInRoom(roomName) {
   return wsServer.sockets.adapter.rooms.get(roomName)?.size;
 }
 
+function isUserInRoom(userId) {
+  const {
+    sockets: {
+      adapter: { rooms },
+    },
+  } = wsServer;
+  const publicRooms = Object.keys(getPublicRooms());
+  let isUserinRoom = false;
+
+  publicRooms.forEach((roomName) => {
+    let users = rooms.get(roomName);
+    if (users.has(userId)) {
+      isUserinRoom = true;
+      return;
+    }
+  });
+
+  return isUserinRoom ? true : false;
+}
+
 wsServer.on('connection', (socket) => {
   socket['partnerNickname'] = 'Anonymous';
   socket['nickname'] = 'Anonymous';
   wsServer.sockets.emit('update_rooms', getPublicRooms());
-  socket.on('check_room', async (nickname, roomName) => {
-    const cnt = countUserInRoom(roomName) ? countUserInRoom(roomName) + 1 : 1;
-    if (cnt > 2) {
-      socket.emit('is_forbidden', nickname, roomName);
+  socket.on('check_room', (nickname, roomName) => {
+    if (isUserInRoom(socket.id)) {
+      socket.emit('already_in_room');
     } else {
-      socket.emit('is_available', nickname, roomName);
+      const cnt = countUserInRoom(roomName) ? countUserInRoom(roomName) + 1 : 1;
+      if (cnt > 2) {
+        socket.emit('is_full', nickname, roomName);
+      } else {
+        socket.emit('is_available', nickname, roomName);
+      }
     }
   });
   socket.on('join_room', (nickname, roomName) => {

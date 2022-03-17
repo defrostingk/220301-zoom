@@ -142,6 +142,7 @@ mikesSelect.addEventListener('input', handleMikeChange);
 
 const saveNickname = document.getElementById('saveNickname');
 const saveNicknameForm = saveNickname.querySelector('form');
+const enterRoom = document.getElementById('enterRoom');
 
 function handleSaveSubmit(event) {
   event.preventDefault();
@@ -153,8 +154,8 @@ function handleSaveSubmit(event) {
 }
 
 function setNickname(nickname) {
-  const nicknameHeader = header.querySelector('h3');
-  nicknameHeader.innerText = `${nickname}, Welcome.`;
+  const greeting = enterRoom.querySelector('h3');
+  greeting.innerText = `${nickname}, Welcome.`;
 }
 
 function setDevices() {
@@ -173,8 +174,8 @@ saveNicknameForm.addEventListener('submit', handleSaveSubmit);
 
 // enterRoom Form (join a room)
 
-const enterRoom = document.getElementById('enterRoom');
 const enterRoomForm = enterRoom.querySelector('form');
+const callHeader = document.getElementById('callHeader');
 
 async function initCall() {
   saveNickname.hidden = true;
@@ -185,15 +186,14 @@ async function initCall() {
 }
 
 function setRoomName() {
-  const headerTitle = header.querySelector('h1');
-  headerTitle.innerText = `${roomName}`;
-  const nicknameHeader = header.querySelector('h3');
-  nicknameHeader.innerText = '';
+  const title = callHeader.querySelectorAll('span');
+  title[0].innerText = `${roomName}`;
+  title[1].innerText = 'Waiting for call partner...';
 }
 
 function setCallPartner(partnerNickname) {
-  const callPartner = header.querySelector('h3');
-  callPartner.innerText = `Call with ${partnerNickname}`;
+  const title = callHeader.querySelectorAll('span');
+  title[1].innerText = `Call with ${partnerNickname}`;
 }
 
 function handleEnterRoomSubmit(event) {
@@ -244,29 +244,39 @@ chatForm.addEventListener('submit', handleChatSubmit);
 // Socket Code
 
 socket.on('update_rooms', (rooms) => {
-  const roomList = enterRoom.querySelector('ul');
+  const roomList = document.getElementById('roomList');
   roomList.innerText = '';
-  for (const room in rooms) {
+  if (!Object.keys(rooms).length) {
     const li = document.createElement('li');
-    const button = document.createElement('button');
-    button.innerText = `${room} (${rooms[room]} / 2)`;
-    if (rooms[room] > 1) {
-      button.setAttribute('disabled', 'true');
-    }
-    li.append(button);
+    li.innerText = 'There is no room.';
     roomList.append(li);
-    button.addEventListener('click', () => {
-      if (nickname) {
-        roomName = room;
-        socket.emit('check_room', nickname, roomName);
-      } else {
-        alert('You have to save your nickname first.');
+  } else {
+    for (const room in rooms) {
+      const li = document.createElement('li');
+      const button = document.createElement('button');
+      button.innerText = `${room} (${rooms[room]} / 2)`;
+      if (rooms[room] > 1) {
+        button.setAttribute('disabled', 'true');
       }
-    });
+      li.append(button);
+      roomList.append(li);
+      button.addEventListener('click', () => {
+        if (nickname) {
+          roomName = room;
+          socket.emit('check_room', nickname, roomName);
+        } else {
+          alert('You have to save your nickname first.');
+        }
+      });
+    }
   }
 });
 
-socket.on('is_forbidden', (nickname, roomName) => {
+socket.on('already_in_room', () => {
+  alert(`You are already in the other room.\nYou can enter only one room.`);
+});
+
+socket.on('is_full', (nickname, roomName) => {
   alert(`${roomName} is full.`);
 });
 socket.on('is_available', async (nickname, roomName) => {
@@ -342,13 +352,13 @@ socket.on('leave_chat', (partnerNickname) => {
   addMessage(`${partnerNickname} left`);
 });
 
-socket.on('leave_call', () => {
+socket.on('leave_call', (partnerNickname) => {
   console.log(nickname, 'leave_call');
   peerFace.srcObject.getVideoTracks().forEach((track) => {
     track.stop();
     peerFace.srcObject.removeTrack(track);
   });
-  setNickname(nickname);
+  setRoomName();
   makeConnection();
   socket.emit('join_room', nickname, roomName);
 });

@@ -6,45 +6,58 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css")
         link(rel="stylesheet", href="/public/css/styles.css")
+        link(rel="preconnect" href="https://fonts.googleapis.com")
+        link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+        link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
         title ZZoom
     body
         header
             a#logo(href="") 
                 i.fa-solid.fa-video.fa-lg
                 label(for="title") ZZoom
-            h1 
-            h3 
-        main 
-            div#saveNickname
-                form
-                    input#nickname(placeholder="nickname",required, type="text")
-                    input#mikeOff(type="checkbox")
-                    label(for="mikeOff") Mike Off
-                    input#cameraOff(type="checkbox")
-                    label(for="cameraOff") Camera Off
-                    button Save
-            div#enterRoom
-                form
-                    input#roomName(placeholder="room name",required, type="text")
-                    button Enter Room
-                h3 Open Rooms
-                ul
-            div#call
-                div#myStream
-                    video#myFace(autoplay, playsinline, width="400", height="400", muted)
-                    button#muteBtn Mute
-                    button#cameraBtn Turn Camera Off
-                    video#peerFace(autoplay, playsinline, width="400", height="400")
-                    div#device
-                        select#cameras
-                        select#mikes
-                div#chat
-                    h3 Chat
-                    ul
+        main
+            div.submit
+                div#saveNickname.submit__user
                     form
+                        input#nickname(placeholder="nickname",required, type="text")
+                        input#mikeOff(type="checkbox")
+                        label(for="mikeOff") Mike Off
+                        input#cameraOff(type="checkbox")
+                        label(for="cameraOff") Camera Off
+                        button Save
+                div#enterRoom.submit__room
+                    h3
+                    form
+                        input#roomName(placeholder="room name",required, type="text")
+                        button Enter Room
+            div.room-list
+                h3 Open Rooms
+                ul#roomList
+
+            div#call.call
+                div.call__video
+                    div#callHeader.call__video__header
+                        span
+                        span
+                    video.call__video__my-video#myFace(autoplay, playsinline, width="400", height="400", muted)
+                    span.call__video__my-name
+                    video.call_video__peer-video#peerFace(autoplay, playsinline, width="400", height="400")
+                    span.call__video__peer-name
+                    span
+                    div#device.call__video__device
+                        div.call__video__device__mike
+                            select#mikes
+                            button#muteBtn Mute
+                        div.call__video__device__camera
+                            select#cameras
+                            button#cameraBtn Turn Camera Off
+                div#chat.call__chat
+                    span.call__chat__header Chat
+                    ul.call__chat__text
+                    form.call__chat__send
                         input#message(placeholder="message", required, type="test")
                         button Send
-                a(href="") Close
+                    a.call__chat__close(href="") Close
         footer &copy; #{new Date().getFullYear()} ZZoom
 
         script(src="/socket.io/socket.io.js")

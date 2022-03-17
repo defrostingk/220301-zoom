@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon -e js,pug,scss"
+    "dev": "nodemon -e js,pug,css"
   },
   "bugs": {
     "url": "https://github.com/defrostingk/220301-zoom/issues"

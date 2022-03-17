@@ -35,29 +35,29 @@ html(lang="en")
                 ul#roomList
 
             div#call.call
-                div.call__video
-                    div#callHeader.call__video__header
+                div.video
+                    div#callHeader.video__header
                         span
                         span
-                    video.call__video__my-video#myFace(autoplay, playsinline, width="400", height="400", muted)
-                    span.call__video__my-name
-                    video.call_video__peer-video#peerFace(autoplay, playsinline, width="400", height="400")
-                    span.call__video__peer-name
+                    video.video__my-video#myFace(autoplay, playsinline, width="400", height="400", muted)
+                    span.video__my-name
+                    video.video__peer-video#peerFace(autoplay, playsinline, width="400", height="400")
+                    span.video__peer-name
                     span
-                    div#device.call__video__device
-                        div.call__video__device__mike
+                    div#device.video__device
+                        div.video__mike
                             select#mikes
                             button#muteBtn Mute
-                        div.call__video__device__camera
+                        div.video__camera
                             select#cameras
                             button#cameraBtn Turn Camera Off
-                div#chat.call__chat
-                    span.call__chat__header Chat
-                    ul.call__chat__text
-                    form.call__chat__send
+                div#chat.chat
+                    span.chat__header Chat
+                    ul.chat__text
+                    form.chat__send
                         input#message(placeholder="message", required, type="test")
                         button Send
-                    a.call__chat__close(href="") Close
+                    a.call__close(href="") Close
         footer &copy; #{new Date().getFullYear()} ZZoom
 
         script(src="/socket.io/socket.io.js")

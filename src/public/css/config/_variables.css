@@ -1,0 +1,6 @@
+:root {
+  --logo-color: #2d8cff;
+  --font-color: rgba(0, 0, 0, 0.8);
+  --border-default: 2px solid rgba(0, 0, 0, 0.1);
+  --border-radius: 0.6em;
+}

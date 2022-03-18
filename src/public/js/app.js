@@ -1,6 +1,7 @@
 const socket = io();
 
 const header = document.querySelector('header');
+const home = document.getElementById('home');
 const myFace = document.getElementById('myFace');
 const peerFace = document.getElementById('peerFace');
 const muteBtn = document.getElementById('muteBtn');
@@ -9,7 +10,7 @@ const camerasSelect = document.getElementById('cameras');
 const mikesSelect = document.getElementById('mikes');
 const call = document.getElementById('call');
 
-call.hidden = true;
+call.style.display = 'none';
 
 let myStream;
 let roomIsFull = false;
@@ -148,13 +149,16 @@ function handleSaveSubmit(event) {
   event.preventDefault();
   const nicknameInput = document.getElementById('nickname');
   nickname = nicknameInput.value;
+  const enterRoomBtn = enterRoom.querySelector('button');
   setNickname(nickname);
+  console.log(enterRoomBtn);
+  enterRoomBtn.disabled = false;
   setDevices();
   initButton();
 }
 
 function setNickname(nickname) {
-  const greeting = enterRoom.querySelector('h3');
+  const greeting = enterRoom.querySelector('span');
   greeting.innerText = `${nickname}, Welcome.`;
 }
 
@@ -178,9 +182,8 @@ const enterRoomForm = enterRoom.querySelector('form');
 const callHeader = document.getElementById('callHeader');
 
 async function initCall() {
-  saveNickname.hidden = true;
-  enterRoom.hidden = true;
-  call.hidden = false;
+  call.style.display = 'flex';
+  home.style.display = 'none';
   await getMedia();
   makeConnection();
 }

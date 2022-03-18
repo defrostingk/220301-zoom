@@ -9,30 +9,34 @@ html(lang="en")
         link(rel="preconnect" href="https://fonts.googleapis.com")
         link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
-        title ZZoom
+        title Zzoom
+        link(rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico")
     body
         header
             a#logo(href="") 
                 i.fa-solid.fa-video.fa-lg
-                label(for="title") ZZoom
+                label(for="logo") Zzoom
         main
-            div.submit
-                div#saveNickname.submit__user
-                    form
-                        input#nickname(placeholder="nickname",required, type="text")
-                        input#mikeOff(type="checkbox")
-                        label(for="mikeOff") Mike Off
-                        input#cameraOff(type="checkbox")
-                        label(for="cameraOff") Camera Off
-                        button Save
-                div#enterRoom.submit__room
-                    h3
-                    form
-                        input#roomName(placeholder="room name",required, type="text")
-                        button Enter Room
-            div.room-list
-                h3 Open Rooms
-                ul#roomList
+            div#home.home
+                div.submit
+                    div#saveNickname.submit__user
+                        form
+                            input.submit__text#nickname(placeholder="nickname", required, type="text")
+                            div.submit__mike
+                                input#mikeOff(type="checkbox")
+                                label(for="mikeOff") Mike Off
+                            div.submit__camera
+                                input#cameraOff(type="checkbox")
+                                label(for="cameraOff") Camera Off
+                            button Save
+                    div#enterRoom.submit__room
+                        span Please save your nickname first.
+                        form
+                            input.submit__text#roomName(placeholder="room name", required, type="text")
+                            button(disabled) Enter Room
+                div.room-list
+                    h3 Open Rooms
+                    ul#roomList
 
             div#call.call
                 div.video
@@ -58,7 +62,7 @@ html(lang="en")
                         input#message(placeholder="message", required, type="test")
                         button Send
                     a.call__close(href="") Close
-        footer &copy; #{new Date().getFullYear()} ZZoom
+        footer &copy; 2022. defrostingk All rights reserved.
 
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")

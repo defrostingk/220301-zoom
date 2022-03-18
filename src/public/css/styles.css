@@ -17,15 +17,18 @@ body {
   font-family: 'Lato', sans-serif;
   display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 100vw;
   color: var(--font-color);
+  overflow-x: hidden;
+  margin: 0 auto;
 }
 
 main {
   display: flex;
   flex-direction: column;
-  width: 95vw;
+  width: 100%;
   align-items: center;
-  align-self: center;
 }
 
 a {

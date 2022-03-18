@@ -35,8 +35,9 @@ html(lang="en")
                             input.submit__text#roomName(placeholder="room name", required, type="text")
                             button(disabled) Enter Room
                 div.room-list
-                    h3 Open Rooms
-                    ul#roomList
+                    div.room-list__wrapper
+                        span Open Rooms
+                        ul#roomList
 
             div#call.call
                 div.video

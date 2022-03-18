@@ -1,6 +1,7 @@
 header {
   display: flex;
   color: var(--logo-color);
+  width: 100vw;
   border-bottom: var(--border-default);
 }
 

@@ -1,0 +1,24 @@
+form button {
+  height: 2rem;
+  font-size: 1rem;
+  width: 50%;
+  align-self: flex-end;
+  background-color: var(--logo-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: 2px 2px 2px black;
+  transition-duration: 0.1s;
+}
+form button:hover {
+  cursor: pointer;
+}
+form button:active {
+  margin-left: 1px;
+  margin-top: 1px;
+  box-shadow: none;
+}
+form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

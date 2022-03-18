@@ -2,13 +2,16 @@
 @import url('../css/config/_reset.css');
 @import url('../css/config/_variables.css');
 
-/* Screens */
-@import url('../css/screens/home.css');
-@import url('../css/screens/call.css');
-
 /* Components */
 @import url('../css/components/header.css');
 @import url('../css/components/footer.css');
+@import url('../css/components/button.css');
+@import url('../css/components/submit.css');
+@import url('../css/components/room-list.css');
+
+/* Screens */
+@import url('../css/screens/home.css');
+@import url('../css/screens/call.css');
 
 body {
   font-family: 'Lato', sans-serif;

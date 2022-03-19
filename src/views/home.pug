@@ -30,7 +30,8 @@ html(lang="en")
                                 label(for="cameraOff") Camera Off
                             button Save
                     div#enterRoom.submit__room
-                        span Please save your nickname first.
+                        div.submit__alert
+                            span Please save your nickname first.
                         form
                             input.submit__text#roomName(placeholder="room name", required, type="text", maxlength='20')
                             button(disabled) Enter Room
@@ -40,29 +41,34 @@ html(lang="en")
                         ul#roomList
 
             div#call.call
-                div.video
-                    div#callHeader.video__header
-                        span
-                        span
-                    video.video__my-video#myFace(autoplay, playsinline, width="400", height="400", muted)
-                    span.video__my-name
-                    video.video__peer-video#peerFace(autoplay, playsinline, width="400", height="400")
-                    span.video__peer-name
-                    span
-                    div#device.video__device
-                        div.video__mike
-                            select#mikes
-                            button#muteBtn Mute
-                        div.video__camera
-                            select#cameras
-                            button#cameraBtn Turn Camera Off
-                div#chat.chat
-                    span.chat__header Chat
-                    ul.chat__text
-                    form.chat__send
-                        input#message(placeholder="message", required, type="test")
-                        button Send
-                    a.call__close(href="") Close
+                div.header__wrapper
+                    div#callHeader.call__header
+                        span.call__room-name
+                        span.call__room-description
+                div.call__area
+                    div.video__wrapper
+                        div.video
+                            video.video__my-video#myFace(autoplay, playsinline, width="400", height="400", muted)
+                            span.video__my-name
+                            video.video__peer-video#peerFace(autoplay, playsinline, width="400", height="400")
+                            span.video__peer-name
+                            span
+                            div#device.video__device
+                                div.video__mike
+                                    select#mikes
+                                    button#muteBtn Mute
+                                div.video__camera
+                                    select#cameras
+                                    button#cameraBtn Turn Camera Off
+                    div.chat__wrapper
+                        div#chat.chat
+                            span.chat__header Chat
+                            ul.chat__text
+                            form.chat__send
+                                input#message(placeholder="message", required, type="test")
+                                button Send
+                form(action="").call__close
+                    button Close
         footer &copy; 2022. defrostingk All rights reserved.
 
         script(src="/socket.io/socket.io.js")

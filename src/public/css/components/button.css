@@ -11,7 +11,7 @@ button {
   transition-duration: 0.1s;
 }
 button:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   cursor: pointer;
 }
 button:active {

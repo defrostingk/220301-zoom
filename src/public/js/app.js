@@ -11,6 +11,7 @@ const mikesSelect = document.getElementById('mikes');
 const call = document.getElementById('call');
 
 call.style.display = 'none';
+peerFace.style.display = 'none';
 
 let myStream;
 let roomIsFull = false;
@@ -184,6 +185,7 @@ const callHeader = document.getElementById('callHeader');
 async function initCall() {
   call.style.display = 'flex';
   home.style.display = 'none';
+  header.style.display = 'none';
   await getMedia();
   makeConnection();
 }
@@ -191,7 +193,7 @@ async function initCall() {
 function setRoomName() {
   const title = callHeader.querySelectorAll('span');
   title[0].innerText = `${roomName}`;
-  title[1].innerText = 'Waiting for call partner...';
+  title[1].innerText = 'Waiting for a call partner...';
 }
 
 function setCallPartner(partnerNickname) {
@@ -242,6 +244,18 @@ function handleChatSubmit(event) {
   }
 }
 
+function handleChatFocusIn() {
+  const input = chatForm.querySelector('input');
+  input.placeholder = '';
+}
+
+function handleChatFocusOut() {
+  const input = chatForm.querySelector('input');
+  input.placeholder = 'message';
+}
+
+chatForm.addEventListener('focusin', handleChatFocusIn);
+chatForm.addEventListener('focusout', handleChatFocusOut);
 chatForm.addEventListener('submit', handleChatSubmit);
 
 // Socket Code
@@ -309,6 +323,7 @@ socket.on('start_chat', (partnerNickname) => {
 });
 socket.on('join_chat', (partnerNickname) => {
   console.log(nickname, 'join_chat');
+  peerFace.style.display = 'flex';
   myPeerConnection.addEventListener('datachannel', (event) => {
     myDataChannel = event.channel;
     addMessage(`${partnerNickname} arrived!`);

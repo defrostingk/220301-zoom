@@ -21,7 +21,7 @@ html(lang="en")
                 div.submit
                     div#saveNickname.submit__user
                         form
-                            input.submit__text#nickname(placeholder="nickname", required, type="text")
+                            input.submit__text#nickname(placeholder="nickname", required, type="text", maxlength='12')
                             div.submit__mike
                                 input#mikeOff(type="checkbox")
                                 label(for="mikeOff") Mike Off
@@ -32,7 +32,7 @@ html(lang="en")
                     div#enterRoom.submit__room
                         span Please save your nickname first.
                         form
-                            input.submit__text#roomName(placeholder="room name", required, type="text")
+                            input.submit__text#roomName(placeholder="room name", required, type="text", maxlength='20')
                             button(disabled) Enter Room
                 div.room-list
                     div.room-list__wrapper

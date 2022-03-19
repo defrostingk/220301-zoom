@@ -2,6 +2,7 @@
   display: flex;
   width: 100%;
   height: 100%;
+  margin-bottom: 80px;
 }
 
 .room-list__wrapper {
@@ -20,12 +21,25 @@
 .room-list span,
 .room-list ul {
   display: flex;
-  width: 90%;
   padding: 0.25em 0.5em;
-  margin: 10px;
 }
 
 .room-list span {
   font-size: 2rem;
-  border-bottom: var(--border-default);
+  margin: 10px;
+}
+
+.room-list ul {
+  width: 90%;
+  border-top: var(--border-default);
+  justify-content: flex-start;
+  align-self: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+.room-list button {
+  width: 30%;
+  height: 3rem;
+  margin: 5px;
 }

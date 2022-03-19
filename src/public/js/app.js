@@ -255,14 +255,12 @@ socket.on('update_rooms', (rooms) => {
     roomList.append(li);
   } else {
     for (const room in rooms) {
-      const li = document.createElement('li');
       const button = document.createElement('button');
-      button.innerText = `${room} (${rooms[room]} / 2)`;
+      button.innerText = `${room}\n(${rooms[room]} / 2)`;
       if (rooms[room] > 1) {
         button.setAttribute('disabled', 'true');
       }
-      li.append(button);
-      roomList.append(li);
+      roomList.append(button);
       button.addEventListener('click', () => {
         if (nickname) {
           roomName = room;

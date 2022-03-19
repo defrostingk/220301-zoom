@@ -1,13 +1,13 @@
 .video__wrapper {
-  width: fit-content;
-  height: fit-content;
+  width: auto;
+  height: auto;
   padding: 10px;
   padding-right: 5px;
 }
 
 .video {
-  width: fit-content;
-  height: fit-content;
+  width: auto;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,8 +21,8 @@
 .video__peer-video {
   border: 2px solid black;
   margin: 5px;
-  width: fit-content;
-  height: fit-content;
+  width: auto;
+  height: auto;
   align-self: center;
   border: var(--border-default);
   border-radius: var(--border-radius);

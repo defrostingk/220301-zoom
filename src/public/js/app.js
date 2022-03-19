@@ -314,6 +314,7 @@ socket.on('header', (myNickname) => {
 socket.on('start_chat', (partnerNickname) => {
   console.log(nickname, 'start_chat');
   console.log('made data channel');
+  peerFace.style.display = 'flex';
   myDataChannel = myPeerConnection.createDataChannel('chat');
   addMessage(`${partnerNickname} arrived!`);
   myDataChannel.addEventListener('message', (event) => {

@@ -127,7 +127,7 @@ wsServer.on('connection', (socket) => {
   });
 });
 
-const PORT = 4000;
+const PORT = 3000;
 function handelListen() {
   console.log(`Listening on http://localhost:${PORT}`);
 }

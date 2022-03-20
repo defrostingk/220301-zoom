@@ -54,6 +54,8 @@
 .submit__mike,
 .submit__camera {
   height: 1rem;
+  display: flex;
+  align-items: center;
 }
 
 .submit__alert {

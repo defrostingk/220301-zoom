@@ -22,6 +22,9 @@ let roomName;
 let myPeerConnection;
 let myDataChannel;
 
+const ALIGN_LEFT = 'left';
+const ALIGN_RIGHT = 'right';
+
 async function getDevices() {
   await getCameras();
   await getMikes();
@@ -220,13 +223,28 @@ enterRoomForm.addEventListener('submit', handleEnterRoomSubmit);
 const chat = document.getElementById('chat');
 const chatForm = chat.querySelector('form');
 
-function addMessage(message, sender) {
+function addMessage(message, alignment, sender) {
   const ul = chat.querySelector('ul');
   const li = document.createElement('li');
-  if (sender) {
-    li.innerText = `${sender}: ${message}`;
+  const messageSpan = document.createElement('span');
+
+  if (sender && alignment === 'left') {
+    const nicknameSpan = document.createElement('span');
+    nicknameSpan.classList.add('chat__nickname');
+    nicknameSpan.innerText = sender;
+    li.appendChild(nicknameSpan);
+  }
+
+  messageSpan.innerText = message;
+  messageSpan.classList.add('chat__message');
+  li.appendChild(messageSpan);
+
+  if (alignment === 'left') {
+    li.classList.add('chat--align-left');
+  } else if (alignment === 'right') {
+    li.classList.add('chat--align-right');
   } else {
-    li.innerText = message;
+    li.classList.add('chat--align-center');
   }
   ul.appendChild(li);
 }
@@ -236,7 +254,7 @@ function handleChatSubmit(event) {
   const messageInput = document.getElementById('message');
   const message = messageInput.value;
   messageInput.value = '';
-  addMessage(message, nickname);
+  addMessage(message, ALIGN_RIGHT, nickname);
   try {
     myDataChannel.send(message);
   } catch (e) {
@@ -318,10 +336,11 @@ socket.on('start_chat', (partnerNickname) => {
   myDataChannel = myPeerConnection.createDataChannel('chat');
   addMessage(`${partnerNickname} arrived!`);
   myDataChannel.addEventListener('message', (event) => {
-    addMessage(event.data, partnerNickname);
+    addMessage(event.data, ALIGN_LEFT, partnerNickname);
   });
   socket.emit('join_chat', nickname, roomName);
 });
+
 socket.on('join_chat', (partnerNickname) => {
   console.log(nickname, 'join_chat');
   peerFace.style.display = 'flex';
@@ -329,7 +348,7 @@ socket.on('join_chat', (partnerNickname) => {
     myDataChannel = event.channel;
     addMessage(`${partnerNickname} arrived!`);
     myDataChannel.addEventListener('message', (event) => {
-      addMessage(event.data, partnerNickname);
+      addMessage(event.data, ALIGN_LEFT, partnerNickname);
     });
   });
 });

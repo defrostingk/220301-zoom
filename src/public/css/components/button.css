@@ -9,6 +9,7 @@ button {
   border-radius: var(--border-radius);
   box-shadow: 2px 2px 2px black;
   transition-duration: 0.1s;
+  box-sizing: border-box;
 }
 button:hover {
   transform: scale(1.05);

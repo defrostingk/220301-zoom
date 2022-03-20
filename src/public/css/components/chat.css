@@ -5,7 +5,7 @@
   padding: 10px;
   padding-left: 5px;
   height: 100%;
-  width: 30%;
+  width: 100%;
   box-sizing: border-box;
   align-self: flex-start;
   flex-grow: 1;
@@ -24,10 +24,45 @@
 }
 
 .chat__header {
-  font-size: 2rem;
-  border-bottom: var(--border-default);
-  padding: 0.25em 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
+  border-bottom: var(--border-default);
+}
+
+.chat__room-name,
+.chat__room-description,
+.chat__close {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 10px;
+}
+
+.chat__room-name,
+.chat__room-description {
+  align-items: center;
+  padding: var(--padding-text);
+  box-sizing: border-box;
+  margin-right: 10px;
+}
+
+.chat__room-name {
+  font-size: 2rem;
+  border-right: var(--border-default);
+}
+.chat__room-description {
+  font-size: 1.5rem;
+}
+
+.chat__close {
+  display: flex;
+  justify-content: flex-end;
+}
+.chat__close button {
+  background-color: #f16f8e;
+  align-self: center;
 }
 
 .chat__text {
@@ -37,14 +72,14 @@
   margin-bottom: 10px;
   background-color: rgba(45, 140, 255, 0.1);
   border-radius: var(--border-radius);
-  overflow-y: auto;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding-top: 20px;
 }
 
 .chat__text li {
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  margin: 2px 10px;
 }
 
 .chat__text span {
@@ -60,6 +95,7 @@
 
 .chat--align-left {
   align-self: flex-start;
+  margin: 2px 30px 2px 10px;
 }
 .chat--align-left .chat__message {
   background-color: white;
@@ -67,6 +103,7 @@
 
 .chat--align-right {
   align-self: flex-end;
+  margin: 2px 10px 2px 30px;
 }
 .chat--align-right .chat__message {
   background-color: #f8f85e;
@@ -74,6 +111,7 @@
 
 .chat--align-center {
   align-self: center;
+  margin: 2px 30px 2px 30px;
 }
 .chat--align-center .chat__message {
   background-color: #c7d5e7;
@@ -81,10 +119,7 @@
 
 .chat__send {
   display: flex;
-  width: 90%;
-  position: fixed;
-  left: 5vw;
-  bottom: 60px;
+  width: 100%;
 }
 
 .chat__send input {

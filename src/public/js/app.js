@@ -1,5 +1,7 @@
 const socket = io();
 
+const main = document.querySelector('main');
+const footer = document.querySelector('footer');
 const header = document.querySelector('header');
 const home = document.getElementById('home');
 const myFace = document.getElementById('myFace');
@@ -14,7 +16,6 @@ call.style.display = 'none';
 peerFace.style.display = 'none';
 
 let myStream;
-let roomIsFull = false;
 let muted = true;
 let cameraOff = true;
 let nickname;
@@ -113,7 +114,7 @@ function handleMuteClick() {
 function handleCameraClick() {
   const curState = myStream.getVideoTracks()[0].enabled;
   myStream.getVideoTracks()[0].enabled = !curState;
-  cameraBtn.innerText = cameraOff ? 'Turn Camera Off' : 'Turn Camera On';
+  cameraBtn.innerText = cameraOff ? 'Cam Off' : 'Cam On';
   cameraOff = !cameraOff;
 }
 
@@ -175,7 +176,7 @@ function setDevices() {
 
 function initButton() {
   muteBtn.innerText = muted ? 'Unmute' : 'Mute';
-  cameraBtn.innerText = cameraOff ? 'Turn Camera On' : 'Turn Camera Off';
+  cameraBtn.innerText = cameraOff ? 'Cam On' : 'Cam Off';
 }
 
 saveNicknameForm.addEventListener('submit', handleSaveSubmit);
@@ -189,6 +190,8 @@ async function initCall() {
   call.style.display = 'flex';
   home.style.display = 'none';
   header.style.display = 'none';
+  footer.style.display = 'none';
+  main.style.marginBottom = '0';
   await getMedia();
   makeConnection();
 }
@@ -221,7 +224,7 @@ enterRoomForm.addEventListener('submit', handleEnterRoomSubmit);
 // Chat Form
 
 const chat = document.getElementById('chat');
-const chatForm = chat.querySelector('form');
+const messageForm = document.getElementById('message');
 
 function addMessage(message, alignment, sender) {
   const ul = chat.querySelector('ul');
@@ -247,11 +250,12 @@ function addMessage(message, alignment, sender) {
     li.classList.add('chat--align-center');
   }
   ul.appendChild(li);
+  ul.scrollTop = ul.scrollHeight;
 }
 
-function handleChatSubmit(event) {
+function handleMessageSubmit(event) {
   event.preventDefault();
-  const messageInput = document.getElementById('message');
+  const messageInput = messageForm.querySelector('input');
   const message = messageInput.value;
   messageInput.value = '';
   addMessage(message, ALIGN_RIGHT, nickname);
@@ -262,19 +266,19 @@ function handleChatSubmit(event) {
   }
 }
 
-function handleChatFocusIn() {
-  const input = chatForm.querySelector('input');
+function handleMessageFocusIn() {
+  const input = messageForm.querySelector('input');
   input.placeholder = '';
 }
 
-function handleChatFocusOut() {
-  const input = chatForm.querySelector('input');
+function handleMessageFocusOut() {
+  const input = messageForm.querySelector('input');
   input.placeholder = 'message';
 }
 
-chatForm.addEventListener('focusin', handleChatFocusIn);
-chatForm.addEventListener('focusout', handleChatFocusOut);
-chatForm.addEventListener('submit', handleChatSubmit);
+messageForm.addEventListener('focusin', handleMessageFocusIn);
+messageForm.addEventListener('focusout', handleMessageFocusOut);
+messageForm.addEventListener('submit', handleMessageSubmit);
 
 // Socket Code
 

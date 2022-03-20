@@ -35,16 +35,12 @@ html(lang="en")
                         form
                             input.submit__text#roomName(placeholder="room name", required, type="text", maxlength='20')
                             button(disabled) Enter Room
-                div.room-list
-                    div.room-list__wrapper
+                div.room-list__wrapper
+                    div.room-list
                         span Open Rooms
                         ul#roomList
 
             div#call.call
-                div.header__wrapper
-                    div#callHeader.call__header
-                        span.call__room-name
-                        span.call__room-description
                 div.call__area
                     div.video__wrapper
                         div.video
@@ -62,13 +58,16 @@ html(lang="en")
                                     button#cameraBtn Turn Camera Off
                     div.chat__wrapper
                         div#chat.chat
-                            span.chat__header Chat
+                            div#callHeader.chat__header
+                                span.chat__room-name
+                                span.chat__room-description
+                                form(action="").chat__close
+                                    button Close
                             ul.chat__text
-                            form.chat__send
-                                input#message(placeholder="message", required, type="test")
+                            form#message.chat__send
+                                input(placeholder="message", required, type="test")
                                 button Send
-                form(action="").call__close
-                    button Close
+
         footer &copy; 2022. defrostingk All rights reserved.
 
         script(src="/socket.io/socket.io.js")

@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var app = (0, _express["default"])();
 app.set('view engine', 'pug');
 app.set('views', process.cwd() + '/src/views');
-app.use('/public', _express["default"]["static"](process.cwd() + '/public'));
+app.use('/public', _express["default"]["static"](process.cwd() + '/src/public'));
 app.get('/', function (req, res) {
   return res.render('home');
 });

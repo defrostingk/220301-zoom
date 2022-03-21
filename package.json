@@ -10,7 +10,9 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon",
+    "start": "node build/server.js",
+    "build": "npm run build:server",
+    "build:server": "babel src -d build",
     "dev": "nodemon -e js,pug,css"
   },
   "bugs": {

@@ -1,0 +1,15 @@
+header {
+  display: flex;
+  color: var(--logo-color);
+  width: 100vw;
+  border-bottom: var(--border-default);
+}
+
+header a {
+  font-size: 4rem;
+  padding: 0.25em 0.5em;
+}
+
+header label {
+  padding-left: 0.25em;
+}

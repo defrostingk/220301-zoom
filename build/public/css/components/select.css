@@ -1,0 +1,10 @@
+select {
+  width: 100%;
+  border: var(--border-default);
+  border-radius: var(--border-radius);
+  padding: var(--padding-input);
+  margin-right: 10px;
+}
+select:focus {
+  border-color: var(--logo-color);
+}

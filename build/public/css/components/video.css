@@ -1,0 +1,48 @@
+.video__wrapper {
+  height: 100%;
+  width: auto;
+  padding: 10px;
+  padding-right: 5px;
+  box-sizing: border-box;
+}
+
+.video {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: var(--border-default);
+  border-radius: var(--border-radius);
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.video__my-video,
+.video__peer-video {
+  border: 2px solid black;
+  margin: 5px;
+  height: auto;
+  align-self: center;
+  border: var(--border-default);
+  border-radius: var(--border-radius);
+}
+
+.video__device {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.video__mike,
+.video__camera {
+  display: flex;
+  justify-content: space-between;
+}
+
+.video__mike {
+  margin-bottom: 5px;
+}

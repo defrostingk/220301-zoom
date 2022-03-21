@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "nodemon",
     "dev": "nodemon -e js,pug,css"
   },
   "bugs": {

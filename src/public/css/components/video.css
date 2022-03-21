@@ -1,6 +1,6 @@
 .video__wrapper {
   height: 100%;
-  width: 50%;
+  width: auto;
   padding: 10px;
   padding-right: 5px;
   box-sizing: border-box;
@@ -8,6 +8,7 @@
 
 .video {
   height: 100%;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;

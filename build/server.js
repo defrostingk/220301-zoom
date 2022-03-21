@@ -8,26 +8,12 @@ var _adminUi = require("@socket.io/admin-ui");
 
 var _express = _interopRequireDefault(require("express"));
 
-var _livereload = _interopRequireDefault(require("livereload"));
-
-var _connectLivereload = _interopRequireDefault(require("connect-livereload"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var liveReloadServer = _livereload["default"].createServer({
-  exts: ['pug', 'js', 'scss']
-});
-
-liveReloadServer.server.once('connection', function () {
-  setTimeout(function () {
-    liveReloadServer.refresh('/');
-  }, 100);
-});
 var app = (0, _express["default"])();
-app.use((0, _connectLivereload["default"])());
 app.set('view engine', 'pug');
-app.set('views', __dirname + '/views');
-app.use('/public', _express["default"]["static"](__dirname + '/public'));
+app.set('views', process.cwd() + '/src/views');
+app.use('/public', _express["default"]["static"](process.cwd() + '/public'));
 app.get('/', function (req, res) {
   return res.render('home');
 });
@@ -135,7 +121,7 @@ wsServer.on('connection', function (socket) {
     wsServer.sockets.emit('update_rooms', getPublicRooms());
   });
 });
-var PORT = 3000;
+var PORT = process.env.PORT || 4000;
 
 function handelListen() {
   console.log("Listening on http://localhost:".concat(PORT));

@@ -17,6 +17,7 @@
   border-radius: var(--border-radius);
   padding: 10px;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .video__face {
@@ -25,7 +26,7 @@
   align-items: center;
   height: 0;
   width: 100%;
-  padding-top: 75%;
+  padding-bottom: 75%;
   position: relative;
   box-sizing: border-box;
   margin-bottom: 10px;

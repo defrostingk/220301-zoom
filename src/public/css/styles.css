@@ -21,12 +21,14 @@ html {
 }
 
 html,
-.chat__text {
+.chat__text,
+.video {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 html::-webkit-scrollbar,
-.chat__text::-webkit-scrollbar {
+.chat__text::-webkit-scrollbar,
+.video::-webkit-scrollbar {
   display: none;
 }
 

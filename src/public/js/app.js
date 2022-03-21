@@ -156,7 +156,6 @@ function handleSaveSubmit(event) {
   nickname = nicknameInput.value;
   const enterRoomBtn = enterRoom.querySelector('button');
   setNickname(nickname);
-  console.log(enterRoomBtn);
   enterRoomBtn.disabled = false;
   setDevices();
   initButton();
@@ -323,19 +322,15 @@ socket.on('is_available', async (nickname, roomName) => {
 });
 
 socket.on('set_header', (partnerNickname) => {
-  console.log(nickname, 'set_header');
   setCallPartner(partnerNickname);
   socket.emit('header', nickname, partnerNickname, roomName);
 });
 socket.on('header', (myNickname) => {
-  console.log(nickname, 'header');
   setCallPartner(myNickname);
   socket.emit('partner_nickname', myNickname);
 });
 
 socket.on('start_chat', (partnerNickname) => {
-  console.log(nickname, 'start_chat');
-  console.log('made data channel');
   peerFace.style.display = 'flex';
   myDataChannel = myPeerConnection.createDataChannel('chat');
   addMessage(`${partnerNickname} arrived!`);
@@ -346,7 +341,6 @@ socket.on('start_chat', (partnerNickname) => {
 });
 
 socket.on('join_chat', (partnerNickname) => {
-  console.log(nickname, 'join_chat');
   peerFace.style.display = 'flex';
   myPeerConnection.addEventListener('datachannel', (event) => {
     myDataChannel = event.channel;
@@ -358,42 +352,31 @@ socket.on('join_chat', (partnerNickname) => {
 });
 
 socket.on('send_offer', async () => {
-  console.log(nickname, 'send_offer');
   const offer = await myPeerConnection.createOffer();
   myPeerConnection.setLocalDescription(offer);
-  console.log('sent to offer');
   socket.emit('offer', offer, roomName);
 });
 
 socket.on('offer', async (offer) => {
-  console.log(nickname, 'offer');
-  console.log('received the offer');
   myPeerConnection.setRemoteDescription(offer);
   const answer = await myPeerConnection.createAnswer();
   myPeerConnection.setLocalDescription(answer);
   socket.emit('answer', answer, roomName);
-  console.log('sent the answer');
 });
 
 socket.on('answer', (answer) => {
-  console.log(nickname, 'answer');
-  console.log('received the answer');
   myPeerConnection.setRemoteDescription(answer);
 });
 
 socket.on('ice', (ice) => {
-  console.log(nickname, 'ice');
-  console.log('received candidate');
   myPeerConnection.addIceCandidate(ice);
 });
 
 socket.on('leave_chat', (partnerNickname) => {
-  console.log(nickname, 'leave_chat');
   addMessage(`${partnerNickname} left`);
 });
 
 socket.on('leave_call', (partnerNickname) => {
-  console.log(nickname, 'leave_call');
   peerFace.srcObject.getVideoTracks().forEach((track) => {
     track.stop();
     peerFace.srcObject.removeTrack(track);
@@ -428,7 +411,6 @@ function makeConnection() {
 
 function handleIce(data) {
   socket.emit('ice', data.candidate, roomName);
-  console.log('sent candidate');
 }
 
 function handleAddStream(data) {

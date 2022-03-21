@@ -44,11 +44,12 @@ html(lang="en")
                 div.call__area
                     div.video__wrapper
                         div.video
-                            video.video__my-video#myFace(autoplay, playsinline, width="400", height="400", muted)
-                            span.video__my-name
-                            video.video__peer-video#peerFace(autoplay, playsinline, width="400", height="400")
-                            span.video__peer-name
-                            span
+                            div.video__face
+                                video.video__my-video#myFace(autoplay, playsinline, width="400", height="400", muted)
+                                span.video__my-name
+                            div.video__face
+                                video.video__peer-video#peerFace(autoplay, playsinline, width="400", height="400")
+                                span.video__peer-name
                             div#device.video__device
                                 div.video__mike
                                     select#mikes

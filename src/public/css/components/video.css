@@ -12,20 +12,38 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   border: var(--border-default);
   border-radius: var(--border-radius);
   padding: 10px;
   box-sizing: border-box;
 }
 
+.video__face {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0;
+  width: 100%;
+  padding-top: 75%;
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
 .video__my-video,
 .video__peer-video {
-  border: 2px solid black;
-  margin: 5px;
-  height: auto;
-  align-self: center;
-  border: var(--border-default);
+  height: 100%;
+  width: 100%;
   border-radius: var(--border-radius);
+  object-fit: fill;
+  align-self: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  box-sizing: border-box;
 }
 
 .video__device {

@@ -1,8 +1,27 @@
 :root {
-  --logo-color: rgba(45, 140, 255, 1);
-  --font-color: rgba(0, 0, 0, 0.8);
-  --border-default: 2px solid rgba(0, 0, 0, 0.1);
-  --border-radius: 0.6em;
-  --padding-input: 0.25em 0.5em;
+  /* Color */
+  --grey-dark-color: #343434;
+  --grey-color: #b2b2b2;
+  --grey-light-color: #e5e5e5;
+  --white-color: #ffffff;
+  --blue-color: #2d8cff;
+  --blue-light-color: #e9f3ff;
+  --blue-grey-color: #c7d5e7;
+  --red-color: #f16f8e;
+  --yellow-color: #f8f85e;
+
+  /* Border */
+  --border-default: 2px solid var(--grey-light-color);
+  --border-radius: 0.6rem;
+
+  /* Size */
+  --space-default: 0.75rem;
   --padding-text: 0.25em 0.5em;
+
+  /* Font Size */
+  --font-header: 3rem;
+  --font-large: 2rem;
+  --font-medium: 1.5rem;
+  --font-small: 1rem;
+  --font-micro: 0.75rem;
 }

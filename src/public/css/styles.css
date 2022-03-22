@@ -17,6 +17,19 @@
 @import url('../css/screens/home.css');
 @import url('../css/screens/call.css');
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Lato', sans-serif;
+  color: var(--grey-dark-color);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
 }

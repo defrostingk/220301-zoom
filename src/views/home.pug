@@ -9,7 +9,7 @@ html(lang="en")
         link(rel="preconnect" href="https://fonts.googleapis.com")
         link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
-        title Zzoom
+        title Zzoom | Video Call & Chat Service
         link(rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/defrostingk/220301-zoom/main/src/public/images/favicon.ico")
     body
         header
@@ -36,11 +36,9 @@ html(lang="en")
                         form
                             input.submit__text#roomName(placeholder="room name", required, type="text", maxlength='20')
                             button(disabled) Enter Room
-                div.room-list__wrapper
-                    div.room-list
-                        span Open Rooms
-                        ul#roomList
-
+                div.room-list
+                    span Open Rooms
+                    ul#roomList
             //- Call
             div#call.call
                 div.call__area
@@ -71,7 +69,10 @@ html(lang="en")
                                 input(placeholder="message", required, type="test")
                                 button Send
 
-        footer &copy; 2022. defrostingk All rights reserved.
+        footer 
+            span &copy; 2022. defrostingk All rights reserved.
+            a(href="https://github.com/defrostingk", target="_blank", title="defrostingk") 
+                i.fa-brands.fa-github
 
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")

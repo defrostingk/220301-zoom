@@ -1,0 +1,16 @@
+header {
+  font-size: var(--font-header);
+  padding: var(--space-default);
+  border-bottom: var(--border-default);
+  position: sticky;
+  top: 0;
+  background-color: var(--white-color);
+}
+
+header a {
+  color: var(--blue-color);
+}
+
+header a i {
+  margin-right: var(--space-default);
+}

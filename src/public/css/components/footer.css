@@ -1,0 +1,6 @@
+footer {
+  padding: var(--space-default);
+  background-color: var(--blue-color);
+  font-size: var(--font-small);
+  height: var(--font-large);
+}

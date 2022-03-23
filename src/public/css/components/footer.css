@@ -4,6 +4,10 @@
   padding-bottom: var(--footer-height);
 }
 
+#footer-fixer.call-start {
+  height: 100%;
+}
+
 footer {
   height: var(--footer-height);
   position: relative;

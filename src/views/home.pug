@@ -47,30 +47,31 @@ html(lang="en")
                     ul#roomList
 
             //- Call
-            div#call.call
-                div#callHeader.call__header
-                    span.call__room-name Room 1
-                    span.call__room-description Call with FooBar
-                div.video
-                    video.video__peer-video#peerFace(autoplay, playsinline, width="400", height="400", poster="/public/images/call.png")
-                        span.video__peer-name
-                    video.video__my-video#myFace(autoplay, playsinline, width="400", height="400", muted, poster="/public/images/call.png")
-                        span.video__my-name
-                    div#device.video__device
-                        div.video__mike
-                            select#mikes
-                            button#muteBtn Mute
-                        div.video__camera
-                            select#cameras
-                            button#cameraBtn Turn Camera Off
-                div#chat.chat
-                    ul.chat__text
-                    form#message.chat__send
-                        input(placeholder="message", required, type="test")
-                        button Send
-                    
-                form(action="").chat__close
-                    button Close
+            div#close-fixer
+                div#call.call
+                    div#callHeader.call__header
+                        span.call__room-name Room 1
+                        span.call__room-description Call with FooBar
+                    div.video
+                        video.video__peer-video#peerFace(autoplay, playsinline, width="400", height="400", poster="/public/images/call.png")
+                            span.video__peer-name
+                        video.video__my-video#myFace(autoplay, playsinline, width="400", height="400", muted, poster="/public/images/call.png")
+                            span.video__my-name
+                        div#device.video__device
+                            div.video__mike
+                                select#mikes
+                                button#muteBtn Mute
+                            div.video__camera
+                                select#cameras
+                                button#cameraBtn Turn Camera Off
+                    div#chat.chat
+                        ul.chat__text
+                        form#message.chat__send
+                            input(placeholder="message", required, type="test")
+                            button Send
+                        
+            form(action="").call__close
+                button Close
         footer
             div.footer__contact Contact
                 div.footer__email

@@ -14,10 +14,7 @@ const call = document.getElementById('call');
 
 call.style.display = 'none';
 
-call.style.display = 'flex';
-home.style.display = 'none';
-header.style.display = 'none';
-footer.style.display = 'none';
+switchScreen();
 
 let myStream;
 let muted = true;
@@ -190,12 +187,18 @@ const enterRoomForm = enterRoom.querySelector('form');
 const callHeader = document.getElementById('callHeader');
 
 async function initCall() {
+  switchScreen();
+  await getMedia();
+  makeConnection();
+}
+
+function switchScreen() {
+  const footerFixer = document.getElementById('footer-fixer');
+  footerFixer.classList.add('call-start');
   call.style.display = 'flex';
   home.style.display = 'none';
   header.style.display = 'none';
   footer.style.display = 'none';
-  await getMedia();
-  makeConnection();
 }
 
 function setRoomName() {

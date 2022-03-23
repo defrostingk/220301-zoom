@@ -1,5 +1,6 @@
 :root {
   /* Color */
+  --black-color: #000000;
   --grey-dark-color: #343434;
   --grey-color: #b2b2b2;
   --grey-light-color: #e5e5e5;
@@ -13,6 +14,7 @@
   /* Border */
   --border-width: 2px;
   --border-default: var(--border-width) solid var(--grey-light-color);
+  --border-black: var(--border-width) solid var(--black-color);
   --border-radius: 0.6rem;
   --border-radius-checkbox: 0.3rem;
 
@@ -27,6 +29,7 @@
   --space-default: 0.75rem;
   --padding-text: 0.25em 0.5em;
   --footer-height: calc(var(--font-large) * 4);
+  --close-height: var(--font-large);
 
   /* Shadow */
   --shadow--width: 2px;

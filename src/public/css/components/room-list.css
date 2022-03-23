@@ -1,0 +1,27 @@
+.room-list {
+  display: flex;
+  flex-direction: column;
+  border: var(--border-default);
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+.room-list > span {
+  font-size: var(--font-large);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  border-bottom: var(--border-default);
+  padding: var(--space-default);
+  position: sticky;
+  top: 0;
+  background-color: var(--white-color);
+  z-index: 1;
+}
+
+.room-list ul {
+  padding: var(--space-default);
+}
+
+.room-list button {
+  width: 100%;
+  margin-bottom: var(--space-default);
+}

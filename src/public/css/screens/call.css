@@ -43,6 +43,27 @@
 }
 
 /* Device */
+.video__device {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-default);
+}
+.video__mike,
+.video__camera {
+  display: flex;
+  margin-bottom: calc(var(--space-default) / 2);
+}
+.video__device select {
+  flex: 1 1 70%;
+  width: 100%;
+  margin-right: calc(var(--space-default) / 2);
+}
+.video__device button {
+  flex: 1 1 30%;
+  width: 100%;
+}
+
+/* Chat */
 
 /* Close */
 #close-fixer {

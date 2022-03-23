@@ -11,10 +11,23 @@ const cameraBtn = document.getElementById('cameraBtn');
 const camerasSelect = document.getElementById('cameras');
 const mikesSelect = document.getElementById('mikes');
 const call = document.getElementById('call');
+const footerFixer = document.getElementById('footer-fixer');
 
-call.style.display = 'none';
+initScreen();
+// switchScreen();
 
-switchScreen();
+function initScreen() {
+  const closeBtn = footerFixer.querySelector('.call__close');
+  closeBtn.style.display = 'none';
+  call.style.display = 'none';
+}
+function switchScreen() {
+  footerFixer.classList.toggle('call-start');
+  call.style.display = 'flex';
+  home.style.display = 'none';
+  header.style.display = 'none';
+  footer.style.display = 'none';
+}
 
 let myStream;
 let muted = true;
@@ -190,15 +203,6 @@ async function initCall() {
   switchScreen();
   await getMedia();
   makeConnection();
-}
-
-function switchScreen() {
-  const footerFixer = document.getElementById('footer-fixer');
-  footerFixer.classList.add('call-start');
-  call.style.display = 'flex';
-  home.style.display = 'none';
-  header.style.display = 'none';
-  footer.style.display = 'none';
 }
 
 function setRoomName() {

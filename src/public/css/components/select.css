@@ -1,0 +1,9 @@
+select {
+  font-size: var(--font-small);
+  border: var(--border-default);
+  border-radius: var(--border-radius);
+  padding: var(--padding-text);
+}
+select::focus {
+  border-color: var(--blue-color);
+}

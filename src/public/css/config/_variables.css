@@ -11,12 +11,10 @@
   --yellow-color: #f8f85e;
 
   /* Border */
-  --border-default: 2px solid var(--grey-light-color);
+  --border-width: 2px;
+  --border-default: var(--border-width) solid var(--grey-light-color);
   --border-radius: 0.6rem;
-
-  /* Size */
-  --space-default: 0.75rem;
-  --padding-text: 0.25em 0.5em;
+  --border-radius-checkbox: 0.3rem;
 
   /* Font Size */
   --font-header: 3rem;
@@ -24,4 +22,9 @@
   --font-medium: 1.5rem;
   --font-small: 1rem;
   --font-micro: 0.75rem;
+
+  /* Size */
+  --space-default: 0.75rem;
+  --padding-text: 0.25em 0.5em;
+  --footer-height: calc(var(--font-large) * 4);
 }

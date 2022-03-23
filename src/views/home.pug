@@ -12,23 +12,28 @@ html(lang="en")
         title Zzoom | Video Call & Chat Service
         link(rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/defrostingk/220301-zoom/main/src/public/images/favicon.ico")
     body
-        header
-            a#logo(href="") 
-                i.fa-solid.fa-video.fa-lg
-                label(for="logo") Zzoom
-        main
+        div#footer-fixer
+            header
+                a#logo(href="") 
+                    i.fa-solid.fa-video.fa-lg
+                    label(for="logo") Zzoom
+            main
             //- Home
             div#home.home
+                //- Submit
                 div.submit
                     div#saveNickname.submit__user
                         form
                             input.submit__text#nickname(placeholder="nickname", required, type="text", maxlength='12')
-                            div.submit__mike
-                                input#mikeOff(type="checkbox")
-                                label(for="mikeOff") Mike Off
-                            div.submit__camera
-                                input#cameraOff(type="checkbox")
-                                label(for="cameraOff") Camera Off
+                            div.submit__device
+                                div.submit__mike
+                                    input#mikeOff(type="checkbox")
+                                    label(for="mikeOff")
+                                    label(for="mikeOff") Mike Off
+                                div.submit__camera
+                                    input#cameraOff(type="checkbox")
+                                    label(for="cameraOff")
+                                    label(for="cameraOff") Camera Off
                             button Save
                     div#enterRoom.submit__room
                         div.submit__alert
@@ -36,6 +41,7 @@ html(lang="en")
                         form
                             input.submit__text#roomName(placeholder="room name", required, type="text", maxlength='20')
                             button(disabled) Enter Room
+                //- Room List
                 div.room-list
                     span Open Rooms
                     ul#roomList
@@ -68,11 +74,17 @@ html(lang="en")
                             form#message.chat__send
                                 input(placeholder="message", required, type="test")
                                 button Send
+        footer
+            div.footer__contact Contact
+                div.footer__email
+                    i.fa-solid.fa-envelope 
+                    span haedong1111@gmail.com
+                div.footer__github
+                    a(href="https://github.com/defrostingk", target="_blank", title="Go to GitHub") 
+                        i.fa-brands.fa-github
+                        span https://github.com/defrostingk
+            span.footer__copyright &copy; 2022. defrostingk All rights reserved.
 
-        footer 
-            span &copy; 2022. defrostingk All rights reserved.
-            a(href="https://github.com/defrostingk", target="_blank", title="defrostingk") 
-                i.fa-brands.fa-github
 
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")

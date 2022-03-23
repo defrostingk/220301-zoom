@@ -1,6 +1,40 @@
+#footer-fixer {
+  height: auto;
+  min-height: 100%;
+  padding-bottom: var(--footer-height);
+}
+
 footer {
+  height: var(--footer-height);
+  position: relative;
+  transform: translateY(-100%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: var(--space-default);
   background-color: var(--blue-color);
+}
+
+footer i {
+  margin-right: calc(var(--space-default) / 2);
+}
+
+.footer__contact,
+footer a {
+  color: var(--white-color);
   font-size: var(--font-small);
-  height: var(--font-large);
+}
+
+.footer__email {
+  margin-top: var(--space-default);
+}
+
+.footer__email,
+.footer__github {
+  margin-bottom: calc(var(--space-default) / 2);
+}
+
+.footer__copyright {
+  font-size: var(--font-small);
 }

@@ -40,10 +40,12 @@ a {
 }
 
 /* Hide Scroll */
-html {
+html,
+.chat__text {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-html::-webkit-scrollbar {
+html::-webkit-scrollbar,
+.chat__text::-webkit-scrollbar {
   display: none;
 }

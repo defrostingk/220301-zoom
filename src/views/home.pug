@@ -64,11 +64,12 @@ html(lang="en")
                             div.video__camera
                                 select#cameras
                                 button#cameraBtn Cam Off
-                    div#chat.chat
-                        ul.chat__text
-                        form#message.chat__send
-                            input(placeholder="message", required, type="test")
-                            button Send
+                        div#chat.chat
+                            ul.chat__text
+                            div.send__wrapper
+                                form#message.chat__send
+                                    textarea(placeholder="message", required)
+                                    button Send
                         
             form(action="").call__close
                 button Close

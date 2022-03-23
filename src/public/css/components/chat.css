@@ -1,0 +1,36 @@
+.chat {
+  padding: var(--space-default) 0;
+  margin-bottom: calc(5 * var(--space-default));
+  border: var(--border-default);
+}
+
+.chat__text {
+  background-color: var(--blue-light-color);
+  height: 30vh;
+  overflow-y: scroll;
+}
+
+.chat__send {
+  display: flex;
+  padding: var(--space-default);
+}
+
+.chat__send textarea {
+  font-family: 'Lato', sans-serif;
+  width: 100%;
+  margin-right: var(--space-default);
+  height: calc(2 * var(--font-large));
+  border: none;
+  resize: none;
+}
+.chat__send textarea:focus {
+  border: none;
+}
+
+.chat__send button {
+  background-color: var(--yellow-color);
+  color: var(--grey-dark-color);
+  box-shadow: none;
+  padding: var(--padding-text);
+  height: calc(2 * var(--font-small));
+}

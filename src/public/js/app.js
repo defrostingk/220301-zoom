@@ -15,7 +15,7 @@ const footerFixer = document.getElementById('footer-fixer');
 const closeBtn = footerFixer.querySelector('.call__close');
 
 initScreen();
-switchScreen();
+// switchScreen();
 
 function initScreen() {
   closeBtn.style.display = 'none';

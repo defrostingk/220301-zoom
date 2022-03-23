@@ -22,6 +22,7 @@
   height: calc(2 * var(--font-large));
   border: none;
   resize: none;
+  outline: none;
 }
 .chat__send textarea:focus {
   border: none;

@@ -3,12 +3,16 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.submit button {
+  width: 100%;
+}
 
 .submit__user,
 .submit__room {
   flex: 1 1 50%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   border-radius: var(--border-radius);
   border: var(--border-default);
   padding: var(--space-default);

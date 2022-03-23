@@ -1,0 +1,23 @@
+button {
+  font-size: var(--font-small);
+  color: var(--white-color);
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--blue-color);
+  padding: var(--padding-text);
+  box-shadow: var(--shadow-default);
+  transition-duration: 0.1s;
+}
+button:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+button:active {
+  margin-left: calc(var(--shadow-width) / 2);
+  margin-top: calc(var(--shadow-width) / 2);
+  box-shadow: none;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

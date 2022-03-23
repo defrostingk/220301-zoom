@@ -27,4 +27,9 @@
   --space-default: 0.75rem;
   --padding-text: 0.25em 0.5em;
   --footer-height: calc(var(--font-large) * 4);
+
+  /* Shadow */
+  --shadow--width: 2px;
+  --shadow-default: var(--shadow--width) var(--shadow--width)
+    var(--shadow--width) var(--grey-dark-color);
 }

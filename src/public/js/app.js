@@ -13,7 +13,11 @@ const mikesSelect = document.getElementById('mikes');
 const call = document.getElementById('call');
 
 call.style.display = 'none';
-peerFace.style.display = 'none';
+
+call.style.display = 'flex';
+home.style.display = 'none';
+header.style.display = 'none';
+footer.style.display = 'none';
 
 let myStream;
 let muted = true;
@@ -190,7 +194,6 @@ async function initCall() {
   home.style.display = 'none';
   header.style.display = 'none';
   footer.style.display = 'none';
-  main.style.marginBottom = '0';
   await getMedia();
   makeConnection();
 }
@@ -331,7 +334,6 @@ socket.on('header', (myNickname) => {
 });
 
 socket.on('start_chat', (partnerNickname) => {
-  peerFace.style.display = 'flex';
   myDataChannel = myPeerConnection.createDataChannel('chat');
   addMessage(`${partnerNickname} arrived!`);
   myDataChannel.addEventListener('message', (event) => {
@@ -341,7 +343,6 @@ socket.on('start_chat', (partnerNickname) => {
 });
 
 socket.on('join_chat', (partnerNickname) => {
-  peerFace.style.display = 'flex';
   myPeerConnection.addEventListener('datachannel', (event) => {
     myDataChannel = event.channel;
     addMessage(`${partnerNickname} arrived!`);

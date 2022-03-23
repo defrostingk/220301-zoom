@@ -1,0 +1,26 @@
+.call {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.call__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: var(--white-color);
+}
+
+.call__room-name {
+  font-size: var(--font-large);
+  padding: var(--space-default);
+  background-color: var(--blue-color);
+  color: var(--white-color);
+}
+
+.call__room-description {
+  font-size: var(--font-medium);
+  padding: var(--space-default);
+}

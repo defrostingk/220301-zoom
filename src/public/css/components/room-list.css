@@ -19,6 +19,7 @@
 
 .room-list ul {
   padding: var(--space-default);
+  font-size: var(--font-small);
 }
 
 .room-list button {

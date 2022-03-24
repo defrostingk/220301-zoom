@@ -18,8 +18,12 @@
   color: var(--white-color);
 }
 
+.call__room-name i {
+  margin-right: var(--space-default);
+}
+
 .call__room-description {
-  font-size: var(--font-medium);
+  font-size: var(--font-small);
   padding: var(--space-default);
 }
 

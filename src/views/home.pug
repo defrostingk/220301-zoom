@@ -50,12 +50,14 @@ html(lang="en")
             div#close-fixer
                 div#call.call
                     div#callHeader.call__header
-                        span.call__room-name Room 1
-                        span.call__room-description Call with FooBar
+                        div.call__room-name
+                            i.fa-solid.fa-video.fa-lg
+                            span
+                        span.call__room-description
                     div.video
-                        video.video__peer-video#peerFace(autoplay, playsinline, width="300", height="300", poster="/public/images/call.png")
+                        video.video__peer-video#peerFace(autoplay, playsinline, width="480", height="270", poster="/public/images/call.png")
                             span.video__peer-name
-                        video.video__my-video#myFace(autoplay, playsinline, width="300", height="300", muted, poster="/public/images/call.png")
+                        video.video__my-video#myFace(autoplay, playsinline, width="480", height="270", muted, poster="/public/images/call.png")
                             span.video__my-name
                         div#device.video__device
                             div.video__mike

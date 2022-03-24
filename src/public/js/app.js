@@ -235,37 +235,43 @@ enterRoomForm.addEventListener('submit', handleEnterRoomSubmit);
 
 const chat = document.getElementById('chat');
 const messageForm = document.getElementById('message');
+const messageInput = messageForm.querySelector('textarea');
+const messageSendBtn = messageForm.querySelector('button');
+messageSendBtn.disabled = true;
 
 function addMessage(message, alignment, sender) {
   const ul = chat.querySelector('ul');
   const li = document.createElement('li');
   const messageSpan = document.createElement('span');
 
-  if (sender && alignment === 'left') {
-    const nicknameSpan = document.createElement('span');
-    nicknameSpan.classList.add('chat__nickname');
-    nicknameSpan.innerText = sender;
-    li.appendChild(nicknameSpan);
-  }
+  message = message.trim();
 
-  messageSpan.innerText = message;
-  messageSpan.classList.add('chat__message');
-  li.appendChild(messageSpan);
+  if (message) {
+    if (sender && alignment === 'left') {
+      const nicknameSpan = document.createElement('span');
+      nicknameSpan.classList.add('chat__nickname');
+      nicknameSpan.innerText = sender;
+      li.appendChild(nicknameSpan);
+    }
 
-  if (alignment === 'left') {
-    li.classList.add('chat--align-left');
-  } else if (alignment === 'right') {
-    li.classList.add('chat--align-right');
-  } else {
-    li.classList.add('chat--align-center');
+    messageSpan.innerText = message;
+    messageSpan.classList.add('chat__message');
+    li.appendChild(messageSpan);
+
+    if (alignment === 'left') {
+      li.classList.add('chat--align-left');
+    } else if (alignment === 'right') {
+      li.classList.add('chat--align-right');
+    } else {
+      li.classList.add('chat--align-center');
+    }
+    ul.appendChild(li);
+    ul.scrollTop = ul.scrollHeight;
   }
-  ul.appendChild(li);
-  ul.scrollTop = ul.scrollHeight;
 }
 
 function handleMessageSubmit(event) {
   event.preventDefault();
-  const messageInput = messageForm.querySelector('textarea');
   const message = messageInput.value;
   messageInput.value = '';
   addMessage(message, ALIGN_RIGHT, nickname);
@@ -277,18 +283,40 @@ function handleMessageSubmit(event) {
 }
 
 function handleMessageFocusIn() {
-  const input = messageForm.querySelector('textarea');
-  input.placeholder = '';
+  messageInput.placeholder = '';
 }
 
 function handleMessageFocusOut() {
-  const input = messageForm.querySelector('textarea');
-  input.placeholder = 'message';
+  messageInput.placeholder = 'message';
 }
 
+function handleMessageEnterKeydown(event) {
+  const { keyCode } = event;
+  const { shiftKey } = event;
+  if (keyCode === 13 && !shiftKey) {
+    event.preventDefault();
+    messageSendBtn.click();
+  }
+  if (keyCode === 13 && shiftKey) {
+    event.preventDefault();
+    messageInput.value += '\n';
+  }
+}
+
+function handleMessageWrite() {
+  console.log('changed');
+  if (messageInput.value.trim() === '') {
+    messageSendBtn.disabled = true;
+  } else {
+    messageSendBtn.disabled = false;
+  }
+}
+
+messageInput.addEventListener('input', handleMessageWrite);
 messageForm.addEventListener('focusin', handleMessageFocusIn);
 messageForm.addEventListener('focusout', handleMessageFocusOut);
 messageForm.addEventListener('submit', handleMessageSubmit);
+messageForm.addEventListener('keydown', handleMessageEnterKeydown);
 
 // Socket Code
 

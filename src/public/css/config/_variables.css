@@ -30,6 +30,9 @@
   --padding-text: 0.25em 0.5em;
   --footer-height: calc(var(--font-large) * 4);
   --close-height: var(--font-large);
+  --margin-message-left: 2px 2rem 2px 0.75rem;
+  --margin-message-right: 2px 0.75rem 2px 2rem;
+  --margin-message-center: 2px 2rem 2px 2rem;
 
   /* Shadow */
   --shadow--width: 2px;

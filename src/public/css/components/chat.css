@@ -4,11 +4,57 @@
   border: var(--border-default);
 }
 
+/* Text */
+
 .chat__text {
   background-color: var(--blue-light-color);
   height: 30vh;
   overflow-y: scroll;
+  padding: var(--space-default) 0;
+  display: flex;
+  flex-direction: column;
 }
+
+.chat__text li {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat__text span {
+  padding: var(--padding-text);
+  font-size: var(--font-small);
+  word-break: break-word;
+}
+
+.chat__message {
+  border-radius: var(--border-radius);
+}
+
+.chat--align-left {
+  align-self: flex-start;
+  margin: var(--margin-message-left);
+}
+.chat--align-left .chat__message {
+  background-color: var(--white-color);
+}
+
+.chat--align-right {
+  align-self: flex-end;
+  margin: var(--margin-message-right);
+}
+.chat--align-right .chat__message {
+  background-color: var(--yellow-color);
+}
+
+.chat--align-center {
+  align-self: center;
+  margin: var(--margin-message-center);
+}
+.chat--align-center .chat__message {
+  background-color: var(--grey-color);
+}
+
+/* Send Message */
 
 .chat__send {
   display: flex;

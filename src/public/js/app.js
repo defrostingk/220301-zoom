@@ -304,7 +304,6 @@ function handleMessageEnterKeydown(event) {
 }
 
 function handleMessageWrite() {
-  console.log('changed');
   if (messageInput.value.trim() === '') {
     messageSendBtn.disabled = true;
   } else {

@@ -12,3 +12,7 @@ header a {
 header a i {
   margin-right: var(--space-default);
 }
+
+header label {
+  cursor: pointer;
+}

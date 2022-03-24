@@ -40,31 +40,6 @@ html(lang="en")
                         form     
                             input.submit__text#roomName(placeholder="room name", required, type="text", maxlength='20')
                             button(disabled) Enter Room
-<<<<<<< HEAD
-                div.room-list__wrapper
-                    div.room-list
-                        span Open Rooms
-                        ul#roomList
-            //- Call
-            div#call.call
-                div.call__area
-                    div.video__wrapper
-                        div.video
-                            div.video__face
-                                video.video__my-video#myFace(autoplay, playsinline, width="400", height="400", muted)
-                                span.video__my-name
-                            div.video__face
-                                video.video__peer-video#peerFace(autoplay, playsinline, width="400", height="400")
-                                span.video__peer-name
-                            div#device.video__device
-                                div.video__mike
-                                    select#mikes
-                                    button#muteBtn Mute
-                                div.video__camera
-                                    select#cameras
-                                    button#cameraBtn Turn Camera Off
-                    div.chat__wrapper
-=======
 
                 //- Room List
                 div.room-list
@@ -91,7 +66,6 @@ html(lang="en")
                             div.video__camera
                                 select#cameras
                                 button#cameraBtn Cam Off
->>>>>>> develop
                         div#chat.chat
                             ul.chat__text
                             div.send__wrapper
@@ -101,6 +75,7 @@ html(lang="en")
                         
             form(action="").call__close
                 button Close
+                
         footer
             div.footer__contact Contact
                 div.footer__email

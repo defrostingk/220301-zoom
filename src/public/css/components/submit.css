@@ -1,74 +1,65 @@
 .submit {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.submit form {
   width: 100%;
-  height: auto;
-  padding: 10px;
-  margin-bottom: 40px;
+}
+.submit button {
+  width: 100%;
 }
 
 .submit__user,
 .submit__room {
-  width: 50%;
-  height: 100%;
+  flex: 1 1 50%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  border: var(--border-default);
   border-radius: var(--border-radius);
-  margin: 10px;
-}
-
-.submit form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-.submit button {
-  margin-top: 10px;
-}
-
-.submit__user form {
-  height: 100%;
+  border: var(--border-default);
+  padding: var(--space-default);
 }
 
 .submit__text {
+  width: 100%;
   outline: none;
-  height: 2rem;
-  font-size: 1.5rem;
-  padding: 0.25em 0.5em;
-  border: 2px solid rgba(0, 0, 0, 0.3);
   border-radius: var(--border-radius);
-  margin-bottom: 10px;
+  border: var(--border-default);
+  font-size: var(--font-medium);
+  padding: var(--padding-text);
+  margin-bottom: var(--space-default);
 }
 .submit__text::placeholder {
-  color: rgba(0, 0, 0, 0.3);
+  color: var(--grey-light-color);
 }
 .submit__text:focus {
-  border-color: var(--logo-color);
+  border-color: var(--blue-color);
 }
 
+/* User */
+.submit__user {
+  margin-bottom: var(--space-default);
+}
+.submit__device {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-default);
+}
 .submit__mike,
 .submit__camera {
-  height: 1rem;
+  flex: 1 1 50%;
   display: flex;
   align-items: center;
 }
 
-.submit__alert {
-  display: flex;
-  height: 50%;
-  align-items: center;
+/* Room */
+.submit__room {
+  margin-bottom: var(--space-default);
 }
-
-.submit__room span {
-  display: flex;
-  width: 100%;
-  height: 2rem;
-  font-size: 1.5rem;
-  justify-content: center;
-  align-items: center;
+.submit__greeting {
+  font-size: var(--font-medium);
+  text-align: center;
+  margin-bottom: var(--space-default);
 }

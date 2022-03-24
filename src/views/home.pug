@@ -9,33 +9,38 @@ html(lang="en")
         link(rel="preconnect" href="https://fonts.googleapis.com")
         link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
         link(href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap" rel="stylesheet")
-        title Zzoom
-        link(rel="shortcut icon" type="image/x-icon" href="https://raw.githubusercontent.com/defrostingk/220301-zoom/main/src/public/images/favicon.ico")
+        title Zzoom | Video Call & Chat Service
+        link(rel="shortcut icon" type="image/x-icon" href="/public/images/favicon.ico")
     body
-        header
-            a#logo(href="") 
-                i.fa-solid.fa-video.fa-lg
-                label(for="logo") Zzoom
-        main
+        div#footer-fixer
+            header
+                a#logo(href="") 
+                    i.fa-solid.fa-video.fa-lg
+                    label(for="logo") Zzoom
+            main
             //- Home
             div#home.home
+                //- Submit
                 div.submit
                     div#saveNickname.submit__user
                         form
                             input.submit__text#nickname(placeholder="nickname", required, type="text", maxlength='12')
-                            div.submit__mike
-                                input#mikeOff(type="checkbox")
-                                label(for="mikeOff") Mike Off
-                            div.submit__camera
-                                input#cameraOff(type="checkbox")
-                                label(for="cameraOff") Camera Off
+                            div.submit__device
+                                div.submit__mike
+                                    input#mikeOff(type="checkbox")
+                                    label(for="mikeOff")
+                                    label(for="mikeOff") Mike Off
+                                div.submit__camera
+                                    input#cameraOff(type="checkbox")
+                                    label(for="cameraOff")
+                                    label(for="cameraOff") Camera Off
                             button Save
                     div#enterRoom.submit__room
-                        div.submit__alert
-                            span Please save your nickname first.
-                        form
+                        span.submit__greeting Please save your nickname first. 
+                        form     
                             input.submit__text#roomName(placeholder="room name", required, type="text", maxlength='20')
                             button(disabled) Enter Room
+<<<<<<< HEAD
                 div.room-list__wrapper
                     div.room-list
                         span Open Rooms
@@ -59,18 +64,54 @@ html(lang="en")
                                     select#cameras
                                     button#cameraBtn Turn Camera Off
                     div.chat__wrapper
-                        div#chat.chat
-                            div#callHeader.chat__header
-                                span.chat__room-name
-                                span.chat__room-description
-                                form(action="").chat__close
-                                    button Close
-                            ul.chat__text
-                            form#message.chat__send
-                                input(placeholder="message", required, type="test")
-                                button Send
+=======
 
-        footer &copy; 2022. defrostingk All rights reserved.
+                //- Room List
+                div.room-list
+                    span Open Rooms
+                    ul#roomList
+
+            //- Call
+            div#close-fixer
+                div#call.call
+                    div#callHeader.call__header
+                        div.call__room-name
+                            i.fa-solid.fa-video.fa-lg
+                            span
+                        span.call__room-description
+                    div.video
+                        video.video__peer-video#peerFace(autoplay, playsinline, width="480", height="270", poster="/public/images/call.png")
+                            span.video__peer-name
+                        video.video__my-video#myFace(autoplay, playsinline, width="480", height="270", muted, poster="/public/images/call.png")
+                            span.video__my-name
+                        div#device.video__device
+                            div.video__mike
+                                select#mikes
+                                button#muteBtn Mute
+                            div.video__camera
+                                select#cameras
+                                button#cameraBtn Cam Off
+>>>>>>> develop
+                        div#chat.chat
+                            ul.chat__text
+                            div.send__wrapper
+                                form#message.chat__send
+                                    textarea(placeholder="message", required)
+                                    button Send
+                        
+            form(action="").call__close
+                button Close
+        footer
+            div.footer__contact Contact
+                div.footer__email
+                    i.fa-solid.fa-envelope 
+                    span haedong1111@gmail.com
+                div.footer__github
+                    a(href="https://github.com/defrostingk", target="_blank", title="Go to GitHub") 
+                        i.fa-brands.fa-github
+                        span https://github.com/defrostingk
+            span.footer__copyright &copy; 2022. defrostingk All rights reserved.
+
 
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")

@@ -1,8 +1,41 @@
 :root {
-  --logo-color: rgba(45, 140, 255, 1);
-  --font-color: rgba(0, 0, 0, 0.8);
-  --border-default: 2px solid rgba(0, 0, 0, 0.1);
-  --border-radius: 0.6em;
-  --padding-input: 0.25em 0.5em;
+  /* Color */
+  --black-color: #000000;
+  --grey-dark-color: #343434;
+  --grey-color: #b2b2b2;
+  --grey-light-color: #e5e5e5;
+  --white-color: #ffffff;
+  --blue-color: #2d8cff;
+  --blue-light-color: #e9f3ff;
+  --blue-grey-color: #c7d5e7;
+  --red-color: #f16f8e;
+  --yellow-color: #f8f85e;
+
+  /* Border */
+  --border-width: 2px;
+  --border-default: var(--border-width) solid var(--grey-light-color);
+  --border-black: var(--border-width) solid var(--black-color);
+  --border-radius: 0.6rem;
+  --border-radius-checkbox: 0.3rem;
+
+  /* Font Size */
+  --font-header: 3rem;
+  --font-large: 2rem;
+  --font-medium: 1.5rem;
+  --font-small: 1rem;
+  --font-micro: 0.75rem;
+
+  /* Size */
+  --space-default: 0.75rem;
   --padding-text: 0.25em 0.5em;
+  --footer-height: calc(var(--font-large) * 4);
+  --close-height: var(--font-large);
+  --margin-message-left: 2px 2rem 2px 0.75rem;
+  --margin-message-right: 2px 0.75rem 2px 2rem;
+  --margin-message-center: 2px 2rem 2px 2rem;
+
+  /* Shadow */
+  --shadow--width: 2px;
+  --shadow-default: var(--shadow--width) var(--shadow--width)
+    var(--shadow--width) var(--grey-dark-color);
 }

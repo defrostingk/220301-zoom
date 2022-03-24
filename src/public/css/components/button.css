@@ -1,23 +1,20 @@
 button {
-  height: 2rem;
-  font-size: 1rem;
-  width: 50%;
-  align-self: flex-end;
-  background-color: var(--logo-color);
-  color: white;
+  font-size: var(--font-small);
+  color: var(--white-color);
   border: none;
   border-radius: var(--border-radius);
-  box-shadow: 2px 2px 2px black;
+  background-color: var(--blue-color);
+  padding: var(--padding-text);
+  box-shadow: var(--shadow-default);
   transition-duration: 0.1s;
-  box-sizing: border-box;
 }
 button:hover {
   transform: scale(1.05);
   cursor: pointer;
 }
 button:active {
-  margin-left: 1px;
-  margin-top: 1px;
+  margin-left: calc(var(--shadow-width) / 2);
+  margin-top: calc(var(--shadow-width) / 2);
   box-shadow: none;
 }
 button:disabled {

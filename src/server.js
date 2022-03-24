@@ -3,7 +3,23 @@ import { Server } from 'socket.io';
 import { instrument } from '@socket.io/admin-ui';
 import express from 'express';
 
+// For Live Reload Server
+import livereload from 'livereload';
+import connectLivereload from 'connect-livereload';
+
+const liveReloadServer = livereload.createServer({
+  exts: ['pug', 'js', 'css'],
+});
+liveReloadServer.server.once('connection', () => {
+  setTimeout(() => {
+    liveReloadServer.refresh('/');
+  }, 100);
+});
+
 const app = express();
+
+// live reload
+app.use(connectLivereload());
 
 app.set('view engine', 'pug');
 app.set('views', process.cwd() + '/src/views');
@@ -115,9 +131,12 @@ wsServer.on('connection', (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 4000;
+const LOCAL_PORT = 3000;
+const PORT = process.env.PORT || LOCAL_PORT;
 
 function handelListen() {
-  console.log(`Listening on http://localhost:${PORT}`);
+  if (PORT === LOCAL_PORT) {
+    console.log(`Listening on http://localhost:${PORT}`);
+  }
 }
 httpServer.listen(PORT, handelListen);

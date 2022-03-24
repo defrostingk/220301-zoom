@@ -1,15 +1,14 @@
 header {
-  display: flex;
-  color: var(--logo-color);
-  width: 100vw;
+  font-size: var(--font-header);
+  padding: var(--space-default);
   border-bottom: var(--border-default);
+  background-color: var(--white-color);
 }
 
 header a {
-  font-size: 4rem;
-  padding: 0.25em 0.5em;
+  color: var(--blue-color);
 }
 
-header label {
-  padding-left: 0.25em;
+header a i {
+  margin-right: var(--space-default);
 }

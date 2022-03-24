@@ -11,9 +11,24 @@ const cameraBtn = document.getElementById('cameraBtn');
 const camerasSelect = document.getElementById('cameras');
 const mikesSelect = document.getElementById('mikes');
 const call = document.getElementById('call');
+const footerFixer = document.getElementById('footer-fixer');
+const closeBtn = footerFixer.querySelector('.call__close');
 
-call.style.display = 'none';
-peerFace.style.display = 'none';
+initScreen();
+// switchScreen();
+
+function initScreen() {
+  closeBtn.style.display = 'none';
+  call.style.display = 'none';
+}
+function switchScreen() {
+  footerFixer.classList.toggle('call-start');
+  call.style.display = 'flex';
+  closeBtn.style.display = 'flex';
+  home.style.display = 'none';
+  header.style.display = 'none';
+  footer.style.display = 'none';
+}
 
 let myStream;
 let muted = true;
@@ -186,11 +201,7 @@ const enterRoomForm = enterRoom.querySelector('form');
 const callHeader = document.getElementById('callHeader');
 
 async function initCall() {
-  call.style.display = 'flex';
-  home.style.display = 'none';
-  header.style.display = 'none';
-  footer.style.display = 'none';
-  main.style.marginBottom = '0';
+  switchScreen();
   await getMedia();
   makeConnection();
 }
@@ -224,37 +235,43 @@ enterRoomForm.addEventListener('submit', handleEnterRoomSubmit);
 
 const chat = document.getElementById('chat');
 const messageForm = document.getElementById('message');
+const messageInput = messageForm.querySelector('textarea');
+const messageSendBtn = messageForm.querySelector('button');
+messageSendBtn.disabled = true;
 
 function addMessage(message, alignment, sender) {
   const ul = chat.querySelector('ul');
   const li = document.createElement('li');
   const messageSpan = document.createElement('span');
 
-  if (sender && alignment === 'left') {
-    const nicknameSpan = document.createElement('span');
-    nicknameSpan.classList.add('chat__nickname');
-    nicknameSpan.innerText = sender;
-    li.appendChild(nicknameSpan);
-  }
+  message = message.trim();
 
-  messageSpan.innerText = message;
-  messageSpan.classList.add('chat__message');
-  li.appendChild(messageSpan);
+  if (message) {
+    if (sender && alignment === 'left') {
+      const nicknameSpan = document.createElement('span');
+      nicknameSpan.classList.add('chat__nickname');
+      nicknameSpan.innerText = sender;
+      li.appendChild(nicknameSpan);
+    }
 
-  if (alignment === 'left') {
-    li.classList.add('chat--align-left');
-  } else if (alignment === 'right') {
-    li.classList.add('chat--align-right');
-  } else {
-    li.classList.add('chat--align-center');
+    messageSpan.innerText = message;
+    messageSpan.classList.add('chat__message');
+    li.appendChild(messageSpan);
+
+    if (alignment === 'left') {
+      li.classList.add('chat--align-left');
+    } else if (alignment === 'right') {
+      li.classList.add('chat--align-right');
+    } else {
+      li.classList.add('chat--align-center');
+    }
+    ul.appendChild(li);
+    ul.scrollTop = ul.scrollHeight;
   }
-  ul.appendChild(li);
-  ul.scrollTop = ul.scrollHeight;
 }
 
 function handleMessageSubmit(event) {
   event.preventDefault();
-  const messageInput = messageForm.querySelector('input');
   const message = messageInput.value;
   messageInput.value = '';
   addMessage(message, ALIGN_RIGHT, nickname);
@@ -266,18 +283,40 @@ function handleMessageSubmit(event) {
 }
 
 function handleMessageFocusIn() {
-  const input = messageForm.querySelector('input');
-  input.placeholder = '';
+  messageInput.placeholder = '';
 }
 
 function handleMessageFocusOut() {
-  const input = messageForm.querySelector('input');
-  input.placeholder = 'message';
+  messageInput.placeholder = 'message';
 }
 
+function handleMessageEnterKeydown(event) {
+  const { keyCode } = event;
+  const { shiftKey } = event;
+  if (keyCode === 13 && !shiftKey) {
+    event.preventDefault();
+    messageSendBtn.click();
+  }
+  if (keyCode === 13 && shiftKey) {
+    event.preventDefault();
+    messageInput.value += '\n';
+  }
+}
+
+function handleMessageWrite() {
+  console.log('changed');
+  if (messageInput.value.trim() === '') {
+    messageSendBtn.disabled = true;
+  } else {
+    messageSendBtn.disabled = false;
+  }
+}
+
+messageInput.addEventListener('input', handleMessageWrite);
 messageForm.addEventListener('focusin', handleMessageFocusIn);
 messageForm.addEventListener('focusout', handleMessageFocusOut);
 messageForm.addEventListener('submit', handleMessageSubmit);
+messageForm.addEventListener('keydown', handleMessageEnterKeydown);
 
 // Socket Code
 
@@ -331,7 +370,6 @@ socket.on('header', (myNickname) => {
 });
 
 socket.on('start_chat', (partnerNickname) => {
-  peerFace.style.display = 'flex';
   myDataChannel = myPeerConnection.createDataChannel('chat');
   addMessage(`${partnerNickname} arrived!`);
   myDataChannel.addEventListener('message', (event) => {
@@ -341,7 +379,6 @@ socket.on('start_chat', (partnerNickname) => {
 });
 
 socket.on('join_chat', (partnerNickname) => {
-  peerFace.style.display = 'flex';
   myPeerConnection.addEventListener('datachannel', (event) => {
     myDataChannel = event.channel;
     addMessage(`${partnerNickname} arrived!`);

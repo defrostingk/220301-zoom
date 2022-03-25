@@ -24,6 +24,11 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
+.room-list ul li {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 
 .room-list button {
   width: 100%;

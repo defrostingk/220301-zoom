@@ -80,7 +80,7 @@ function isUserInRoom(userId) {
 wsServer.on('connection', (socket) => {
   socket['partnerNickname'] = 'Anonymous';
   socket['nickname'] = 'Anonymous';
-  // wsServer.sockets.emit('update_rooms', getPublicRooms());
+  wsServer.sockets.emit('update_rooms', getPublicRooms());
   socket.on('check_room', (nickname, roomName) => {
     if (isUserInRoom(socket.id)) {
       socket.emit('already_in_room');

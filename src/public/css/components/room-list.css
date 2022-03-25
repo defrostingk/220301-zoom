@@ -20,9 +20,18 @@
 .room-list ul {
   padding: var(--space-default);
   font-size: var(--font-small);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .room-list button {
   width: 100%;
   margin-bottom: var(--space-default);
+}
+
+@media screen and (min-width: 768px) {
+  .room-list button {
+    width: 49%;
+  }
 }

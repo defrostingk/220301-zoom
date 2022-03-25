@@ -1,7 +1,5 @@
 .chat {
   padding: var(--space-default) 0;
-  margin-bottom: calc(5 * var(--space-default));
-  border: var(--border-default);
 }
 
 /* Text */

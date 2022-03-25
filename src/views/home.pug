@@ -47,34 +47,33 @@ html(lang="en")
                     ul#roomList
 
             //- Call
-            div#close-fixer
-                div#call.call
-                    div#callHeader.call__header
-                        div.call__room-name
-                            i.fa-solid.fa-video.fa-lg
-                            span
-                        span.call__room-description
-                    div.video
-                        video.video__peer-video#peerFace(autoplay, playsinline, width="480", height="270", poster="/public/images/call.png")
-                            span.video__peer-name
-                        video.video__my-video#myFace(autoplay, playsinline, width="480", height="270", muted, poster="/public/images/call.png")
-                            span.video__my-name
-                        div#device.video__device
-                            div.video__mike
-                                select#mikes
-                                button#muteBtn Mute
-                            div.video__camera
-                                select#cameras
-                                button#cameraBtn Cam Off
-                        div#chat.chat
-                            ul.chat__text
-                            div.send__wrapper
-                                form#message.chat__send
-                                    textarea(placeholder="message", required)
-                                    button Send
+            div#call.call
+                div#callHeader.call__header
+                    div.call__room-name
+                        i.fa-solid.fa-video.fa-lg
+                        span
+                    span.call__room-description
+                    form(action="").call__close
+                        button Close
+                div.video
+                    video.video__peer-video#peerFace(autoplay, playsinline, width="480", height="270", poster="/public/images/call.png")
+                        span.video__peer-name
+                    video.video__my-video#myFace(autoplay, playsinline, width="480", height="270", muted, poster="/public/images/call.png")
+                        span.video__my-name
+                div#device.video__device
+                    div.video__mike
+                        select#mikes
+                        button#muteBtn Mute
+                    div.video__camera
+                        select#cameras
+                        button#cameraBtn Cam Off
+                div#chat.chat
+                    ul.chat__text
+                    div.send__wrapper
+                        form#message.chat__send
+                            textarea(placeholder="message", required)
+                            button Send
                         
-            form(action="").call__close
-                button Close
         footer
             div.footer__contact Contact
                 div.footer__email

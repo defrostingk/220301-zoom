@@ -12,19 +12,16 @@ const camerasSelect = document.getElementById('cameras');
 const mikesSelect = document.getElementById('mikes');
 const call = document.getElementById('call');
 const footerFixer = document.getElementById('footer-fixer');
-const closeBtn = footerFixer.querySelector('.call__close');
 
 initScreen();
 // switchScreen();
 
 function initScreen() {
-  closeBtn.style.display = 'none';
   call.style.display = 'none';
 }
 function switchScreen() {
   footerFixer.classList.toggle('call-start');
   call.style.display = 'flex';
-  closeBtn.style.display = 'flex';
   home.style.display = 'none';
   header.style.display = 'none';
   footer.style.display = 'none';

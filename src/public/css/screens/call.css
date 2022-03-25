@@ -9,6 +9,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: calc(var(--font-large) * 2);
+}
+
+.call__room-name,
+.call__room-description,
+.call__close,
+.call__close button {
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .call__room-name {
@@ -27,10 +37,23 @@
   padding: var(--space-default);
 }
 
+/* Close */
+.call__close button {
+  background-color: var(--red-color);
+  font-size: var(--font-medium);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.call__close button:hover {
+  transform: none;
+}
+
 /* Video */
 .video {
   display: flex;
   flex-direction: column;
+  background-color: var(--grey-dark-color);
 }
 
 .video__peer-video,
@@ -51,44 +74,25 @@
   display: flex;
   flex-direction: column;
   padding: var(--space-default);
+  border-bottom: var(--border-default);
 }
+
 .video__mike,
 .video__camera {
   display: flex;
+}
+
+.video__mike {
   margin-bottom: calc(var(--space-default) / 2);
 }
+
 .video__device select {
   flex: 1 1 70%;
   width: 100%;
   margin-right: calc(var(--space-default) / 2);
 }
+
 .video__device button {
   flex: 1 1 30%;
   width: 100%;
-}
-
-/* Close */
-#close-fixer {
-  height: auto;
-  min-height: 100%;
-  padding-bottom: var(--close-height);
-}
-
-.call__close {
-  height: var(--close-height);
-  position: relative;
-  transform: translateY(-100%);
-  display: flex;
-  justify-content: center;
-}
-
-.call__close button {
-  background-color: var(--red-color);
-  width: 100%;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-.call__close button:hover {
-  transform: none;
 }

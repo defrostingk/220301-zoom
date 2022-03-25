@@ -68,6 +68,13 @@
   .submit {
     flex-direction: row;
   }
+  .submit__user form,
+  .submit__room {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
   .submit__user {
     margin-right: var(--space-default);
   }

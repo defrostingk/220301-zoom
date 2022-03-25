@@ -63,3 +63,12 @@
   text-align: center;
   margin-bottom: var(--space-default);
 }
+
+@media screen and (min-width: 768px) {
+  .submit {
+    flex-direction: row;
+  }
+  .submit__user {
+    margin-right: var(--space-default);
+  }
+}

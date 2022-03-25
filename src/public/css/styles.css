@@ -41,11 +41,13 @@ a {
 
 /* Hide Scroll */
 html,
-.chat__text {
+.chat__text,
+.chat__send textarea {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 html::-webkit-scrollbar,
-.chat__text::-webkit-scrollbar {
+.chat__text::-webkit-scrollbar,
+.chat__send textarea::-webkit-scrollbar {
   display: none;
 }

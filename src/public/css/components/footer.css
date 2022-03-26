@@ -1,11 +1,13 @@
 #footer-fixer {
   height: auto;
   min-height: 100%;
+  width: 100%;
   padding-bottom: var(--footer-height);
 }
 
 #footer-fixer.call-start {
   height: 100%;
+  padding-bottom: 0;
 }
 
 footer {

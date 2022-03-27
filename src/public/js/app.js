@@ -114,7 +114,6 @@ async function getMedia(deviceId) {
     }
   } catch (e) {
     console.log(e);
-    setEmptyStream();
   }
 }
 
@@ -391,7 +390,10 @@ socket.on('join_chat', (partnerNickname) => {
 });
 
 socket.on('send_offer', async () => {
-  const offer = await myPeerConnection.createOffer();
+  const offer = await myPeerConnection.createOffer({
+    offerToReceiveAudio: true,
+    offerToReceiveVideo: true,
+  });
   myPeerConnection.setLocalDescription(offer);
   socket.emit('offer', offer, roomName);
 });
@@ -447,7 +449,6 @@ function makeConnection() {
   });
   myPeerConnection.addEventListener('icecandidate', handleIce);
   myPeerConnection.addEventListener('addstream', handleAddStream);
-  myPeerConnection.addEventListener('track', handleAddStream);
   try {
     myStream
       .getTracks()

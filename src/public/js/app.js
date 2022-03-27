@@ -442,9 +442,13 @@ function makeConnection() {
   });
   myPeerConnection.addEventListener('icecandidate', handleIce);
   myPeerConnection.addEventListener('addstream', handleAddStream);
-  myStream
-    .getTracks()
-    .forEach((track) => myPeerConnection.addTrack(track, myStream));
+  try {
+    myStream
+      .getTracks()
+      .forEach((track) => myPeerConnection.addTrack(track, myStream));
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function handleIce(data) {

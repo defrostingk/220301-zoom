@@ -109,6 +109,7 @@ async function getMedia(deviceId) {
     myFace.srcObject = myStream;
     myStream.getAudioTracks()[0].enabled = !muted;
     myStream.getVideoTracks()[0].enabled = !cameraOff;
+    await myPeerConnection.addStream(myStream);
     if (!deviceId) {
       await getDevices();
     }
@@ -118,8 +119,9 @@ async function getMedia(deviceId) {
 }
 
 async function setEmptyStream() {
-  myStream = new MediaStream();
+  myStream = await navigator.mediaDevices.getUserMedia();
   myFace.srcObject = myStream;
+  await myPeerConnection.addStream(myStream);
 }
 
 function handleMuteClick() {
@@ -204,8 +206,8 @@ const callHeader = document.getElementById('callHeader');
 
 async function initCall() {
   switchScreen();
-  await getMedia();
   makeConnection();
+  await getMedia();
 }
 
 function setRoomName() {
@@ -449,13 +451,6 @@ function makeConnection() {
   });
   myPeerConnection.addEventListener('icecandidate', handleIce);
   myPeerConnection.addEventListener('addstream', handleAddStream);
-  try {
-    myStream
-      .getTracks()
-      .forEach((track) => myPeerConnection.addTrack(track, myStream));
-  } catch (e) {
-    console.log(e);
-  }
 }
 
 function handleIce(data) {
@@ -464,4 +459,5 @@ function handleIce(data) {
 
 function handleAddStream(data) {
   peerFace.srcObject = data.stream;
+  console.log('done');
 }

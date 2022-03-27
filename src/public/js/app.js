@@ -199,12 +199,7 @@ const callHeader = document.getElementById('callHeader');
 
 async function initCall() {
   switchScreen();
-  try {
-    await getMedia();
-  } catch (e) {
-    console.log(e);
-    console.log('no device');
-  }
+  await getMedia();
   makeConnection();
 }
 

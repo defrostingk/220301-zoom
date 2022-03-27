@@ -114,7 +114,13 @@ async function getMedia(deviceId) {
     }
   } catch (e) {
     console.log(e);
+    setEmptyStream();
   }
+}
+
+async function setEmptyStream() {
+  myStream = new MediaStream();
+  myFace.srcObject = myStream;
 }
 
 function handleMuteClick() {
@@ -410,10 +416,14 @@ socket.on('leave_chat', (partnerNickname) => {
 });
 
 socket.on('leave_call', (partnerNickname) => {
-  peerFace.srcObject.getVideoTracks().forEach((track) => {
-    track.stop();
-    peerFace.srcObject.removeTrack(track);
-  });
+  try {
+    peerFace.srcObject.getVideoTracks().forEach((track) => {
+      track.stop();
+      peerFace.srcObject.removeTrack(track);
+    });
+  } catch (e) {
+    console.log(e);
+  }
   setRoomName();
   makeConnection();
   socket.emit('join_room', nickname, roomName);

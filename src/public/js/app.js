@@ -415,7 +415,7 @@ socket.on('leave_chat', (partnerNickname) => {
   addMessage(`${partnerNickname} left`);
 });
 
-socket.on('leave_call', (partnerNickname) => {
+socket.on('leave_call', () => {
   try {
     peerFace.srcObject.getVideoTracks().forEach((track) => {
       track.stop();
@@ -447,6 +447,7 @@ function makeConnection() {
   });
   myPeerConnection.addEventListener('icecandidate', handleIce);
   myPeerConnection.addEventListener('addstream', handleAddStream);
+  myPeerConnection.addEventListener('track', handleAddStream);
   try {
     myStream
       .getTracks()

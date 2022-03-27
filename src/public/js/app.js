@@ -118,12 +118,6 @@ async function getMedia(deviceId) {
   }
 }
 
-async function setEmptyStream() {
-  myStream = await navigator.mediaDevices.getUserMedia();
-  myFace.srcObject = myStream;
-  await myPeerConnection.addStream(myStream);
-}
-
 function handleMuteClick() {
   const curState = myStream.getAudioTracks()[0].enabled;
   myStream.getAudioTracks()[0].enabled = !curState;
@@ -459,5 +453,4 @@ function handleIce(data) {
 
 function handleAddStream(data) {
   peerFace.srcObject = data.stream;
-  console.log('done');
 }

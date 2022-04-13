@@ -126,6 +126,7 @@
   bottom: 0;
   background-color: transparent;
   padding-left: 80px;
+  padding-right: 16px;
 }
 
 /* Device */
@@ -142,6 +143,7 @@
 .video__device.visible {
   display: flex;
   background-color: transparent;
+  border: none;
 }
 
 .video__mike,
@@ -239,7 +241,6 @@
   .chat__send textarea {
     height: 100%;
   }
-
   .toggle-device,
   .toggle-chat {
     display: none;

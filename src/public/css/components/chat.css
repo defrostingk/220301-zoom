@@ -6,17 +6,20 @@
 
 .chat.visible {
   display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* Text */
 
 .chat__text {
   background-color: var(--blue-light-color);
-  height: 30vh;
+  height: 85%;
   overflow-y: scroll;
   padding: var(--space-default) 0;
   display: flex;
   flex-direction: column;
+  border-radius: var(--border-radius);
 }
 
 .chat__text li {
@@ -62,7 +65,7 @@
 
 .chat__send {
   display: flex;
-  padding: var(--space-default);
+  padding: var(--space-default) 0 0 0;
   height: calc(var(--font-medium) * 4);
 }
 
@@ -74,6 +77,8 @@
   border: none;
   resize: none;
   outline: none;
+  border-radius: var(--border-radius);
+  padding: 5px;
 }
 .chat__send textarea:focus {
   border: none;

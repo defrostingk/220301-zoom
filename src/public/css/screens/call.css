@@ -24,9 +24,12 @@
   z-index: 99;
   background-color: var(--white-color);
   visibility: hidden;
+  transform: translateY(calc(var(--font-small) * -3.5));
+  transition: all var(--transition-duration) ease-in-out;
 }
 .call__header.visible {
   visibility: visible;
+  transform: translateY(0);
 }
 
 .call__room-name,

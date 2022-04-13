@@ -193,7 +193,7 @@ function initButton() {
 
 saveNicknameForm.addEventListener('submit', handleSaveSubmit);
 
-// enterRoom Form (join a room)
+// enterRoom form (join a room)
 
 const enterRoomForm = enterRoom.querySelector('form');
 const callHeader = document.getElementById('callHeader');
@@ -314,6 +314,14 @@ messageForm.addEventListener('focusin', handleMessageFocusIn);
 messageForm.addEventListener('focusout', handleMessageFocusOut);
 messageForm.addEventListener('submit', handleMessageSubmit);
 messageForm.addEventListener('keydown', handleMessageEnterKeydown);
+
+// Toggle header
+
+const toggleHeaderBtn = document.querySelector('.toggle-header');
+toggleHeaderBtn.addEventListener('click', () => {
+  const callHeader = document.querySelector('.call__header');
+  callHeader.classList.toggle('visible');
+});
 
 // Socket Code
 

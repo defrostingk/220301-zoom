@@ -39,4 +39,7 @@
   --shadow--width: 2px;
   --shadow-default: var(--shadow--width) var(--shadow--width)
     var(--shadow--width) var(--grey-dark-color);
+
+  /* Transition */
+  --transition-duration: 300ms;
 }

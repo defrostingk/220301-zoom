@@ -19,6 +19,14 @@
   height: calc(var(--font-small) * 3.5);
   width: 100%;
   flex-wrap: wrap;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  background-color: var(--white-color);
+  visibility: hidden;
+}
+.call__header.visible {
+  visibility: visible;
 }
 
 .call__room-name,
@@ -85,12 +93,13 @@
   background-color: var(--grey-dark-color);
   height: 100%;
   width: 100%;
+  position: relative;
 }
 
 .video__peer-video,
 .video__my-video {
   margin: 0 auto;
-  max-height: 50%;
+  height: 50%;
   width: 100%;
   flex: 1 1 50%;
   background-color: var(--grey-dark-color);
@@ -98,20 +107,28 @@
 
 .video__peer-video {
   border-bottom: var(--border-black);
-  position: sticky;
-  top: 0;
-  z-index: 99;
+}
+
+/* Device and chat */
+
+.device-chat {
+  height: 50%;
+  display: none;
 }
 
 /* Device */
 .video__device {
-  display: flex;
+  display: none;
   flex-direction: column;
   padding: var(--space-default);
   border-bottom: var(--border-default);
   height: var(--device-height);
   width: 100%;
   background-color: var(--white-color);
+}
+
+.video__device.visible {
+  display: flex;
 }
 
 .video__mike,
@@ -132,6 +149,31 @@
 .video__device button {
   flex: 1 1 30%;
   width: 100%;
+}
+
+/* Toggle button */
+
+.toggle-device,
+.toggle-chat,
+.toggle-header {
+  position: absolute;
+  font-size: var(--font-medium);
+  width: 48px;
+  height: 48px;
+  right: 16px;
+}
+
+.toggle-chat {
+  bottom: 128px;
+}
+
+.toggle-device {
+  bottom: 72px;
+}
+
+.toggle-header {
+  bottom: 16px;
+  background-color: var(--red-color);
 }
 
 @media screen and (min-width: 768px) {
@@ -159,6 +201,7 @@
     position: relative;
   }
   .video__device {
+    display: flex;
     position: absolute;
     top: 0;
     right: 0;

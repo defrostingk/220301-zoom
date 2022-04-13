@@ -1,5 +1,10 @@
 .chat {
+  display: none;
   padding: var(--space-default) 0;
+}
+
+.chat.visible {
+  display: flex;
 }
 
 /* Text */

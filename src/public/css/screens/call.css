@@ -25,6 +25,7 @@
   visibility: hidden;
   transform: translateY(calc(var(--font-small) * -3.5));
   transition: all var(--transition-duration) ease-in-out;
+  z-index: 99;
 }
 .call__header.visible {
   visibility: visible;
@@ -40,7 +41,7 @@
 }
 
 .call__room-name {
-  font-size: var(--font-large);
+  font-size: var(--font-medium);
   padding: var(--space-default);
   background-color: var(--blue-color);
   color: var(--white-color);
@@ -49,10 +50,11 @@
 
 .call__room-name i {
   margin-right: var(--space-default);
+  font-size: var(--font-medium);
 }
 
 .call__room-description {
-  font-size: var(--font-small);
+  font-size: var(--font-micro);
   padding: var(--space-default);
   width: 60%;
   justify-content: center;
@@ -195,6 +197,12 @@
 @media screen and (min-width: 768px) {
   .call {
     height: 100%;
+  }
+  .call__room-name {
+    font-size: var(--font-large);
+  }
+  .call__room-description {
+    font-size: var(--font-small);
   }
   .call__main {
     display: flex;

@@ -1,13 +1,15 @@
 .chat {
-  display: none;
+  display: flex;
   padding: var(--space-default) 0;
   width: 100%;
+  height: 100%;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: all var(--transition-duration) ease-in-out;
 }
 
 .chat.visible {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  transform: translateX(0);
 }
 
 /* Text */

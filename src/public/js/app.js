@@ -324,23 +324,44 @@ toggleHeaderBtn.addEventListener('click', () => {
 });
 
 // Toggle device
-
+const deviceAndChatContainer = document.querySelector('.device-chat');
+const deviceSelector = document.getElementById('device');
 const toggleDeviceBtn = document.querySelector('.toggle-device');
+const toggleChatBtn = document.querySelector('.toggle-chat');
+
 toggleDeviceBtn.addEventListener('click', () => {
-  const deviceContainer = document.querySelector('.device-chat');
-  const deviceSelector = document.getElementById('device');
-  deviceContainer.classList.toggle('visible');
+  if (chat.classList.contains('visible')) {
+    toggleChatBtn.click();
+  }
+  deviceAndChatContainer.classList.toggle('visible');
+  chat.style.display = 'none';
+  deviceSelector.style.display = 'flex';
   deviceSelector.classList.toggle('visible');
 });
 
 // Toggle chat
 
-const toggleChatBtn = document.querySelector('.toggle-chat');
 toggleChatBtn.addEventListener('click', () => {
-  const chatContainer = document.querySelector('.device-chat');
-  const chat = document.getElementById('chat');
-  chatContainer.classList.toggle('visible');
+  if (deviceSelector.classList.contains('visible')) {
+    toggleDeviceBtn.click();
+  }
+  deviceAndChatContainer.classList.toggle('visible');
+  deviceSelector.style.display = 'none';
+  chat.style.display = 'flex';
   chat.classList.toggle('visible');
+});
+
+// Resize screen and remove visible class
+
+window.addEventListener('resize', () => {
+  const width = window.innerWidth;
+  if (width >= 768) {
+    deviceAndChatContainer.classList.remove('visible');
+    deviceSelector.classList.remove('visible');
+    chat.classList.remove('visible');
+    deviceSelector.style.display = 'flex';
+    chat.style.display = 'flex';
+  }
 });
 
 // Socket Code

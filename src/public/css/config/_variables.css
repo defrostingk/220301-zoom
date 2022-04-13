@@ -33,6 +33,7 @@
   --margin-message-left: 2px 2rem 2px 0.75rem;
   --margin-message-right: 2px 0.75rem 2px 2rem;
   --margin-message-center: 2px 2rem 2px 2rem;
+  --device-height: 100px;
 
   /* Shadow */
   --shadow--width: 2px;

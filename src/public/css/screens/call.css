@@ -109,6 +109,9 @@
   flex-direction: column;
   padding: var(--space-default);
   border-bottom: var(--border-default);
+  height: var(--device-height);
+  width: 100%;
+  background-color: var(--white-color);
 }
 
 .video__mike,
@@ -142,26 +145,30 @@
   .video {
     flex: 1 1 60%;
   }
-  .device-chat {
-    flex: 1 1 40%;
-    height: 100%;
-    width: 100%;
-  }
   .video__peer-video {
     position: initial;
-  }
-  .video__device {
-    height: 15%;
   }
   .video__mike,
   .video__camera {
     height: 50%;
   }
+  .device-chat {
+    flex: 1 1 40%;
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+  .video__device {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
   .chat {
-    height: 85%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding: var(--space-default);
+    padding-top: calc(var(--device-height) + var(--space-default));
   }
   .chat__text {
     height: 85%;

@@ -103,7 +103,6 @@
   margin: 0 auto;
   height: 50%;
   width: 100%;
-  flex: 1 1 50%;
   background-color: var(--grey-dark-color);
 }
 
@@ -162,7 +161,7 @@
   font-size: var(--font-medium);
   width: 48px;
   height: 48px;
-  right: 16px;
+  left: 16px;
 }
 
 .toggle-chat {
@@ -232,9 +231,5 @@
   .toggle-device,
   .toggle-chat {
     display: none;
-  }
-
-  .toggle-header {
-    left: 16px;
   }
 }

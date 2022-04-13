@@ -115,6 +115,17 @@
 .device-chat {
   height: 50%;
   display: none;
+  width: 100%;
+}
+
+.device-chat.visible {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: fixed;
+  bottom: 0;
+  background-color: transparent;
+  padding-left: 80px;
 }
 
 /* Device */
@@ -130,6 +141,7 @@
 
 .video__device.visible {
   display: flex;
+  background-color: transparent;
 }
 
 .video__mike,

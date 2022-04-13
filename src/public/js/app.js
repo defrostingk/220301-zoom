@@ -323,6 +323,16 @@ toggleHeaderBtn.addEventListener('click', () => {
   callHeader.classList.toggle('visible');
 });
 
+// Toggle device
+
+const toggleDeviceBtn = document.querySelector('.toggle-device');
+toggleDeviceBtn.addEventListener('click', () => {
+  const deviceContainer = document.querySelector('.device-chat');
+  const deviceSelector = document.getElementById('device');
+  deviceContainer.classList.toggle('visible');
+  deviceSelector.classList.toggle('visible');
+});
+
 // Socket Code
 
 socket.on('update_rooms', (rooms) => {

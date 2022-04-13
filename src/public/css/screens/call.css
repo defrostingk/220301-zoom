@@ -128,6 +128,7 @@
 
 .device-chat.visible {
   transform: translateX(0);
+  opacity: 0.9;
 }
 
 /* Device */
@@ -157,11 +158,13 @@
   flex: 1 1 70%;
   width: 100%;
   margin-right: calc(var(--space-default) / 2);
+  font-size: var(--font-micro);
 }
 
 .video__device button {
   flex: 1 1 30%;
   width: 100%;
+  font-size: var(--font-micro);
 }
 
 /* Toggle button */
@@ -224,6 +227,13 @@
     top: 0;
     right: 0;
     border-bottom: var(--border-default);
+  }
+
+  .video__device select {
+    font-size: var(--font-small);
+  }
+  .video__device button {
+    font-size: var(--font-small);
   }
   .chat {
     padding: var(--space-default);

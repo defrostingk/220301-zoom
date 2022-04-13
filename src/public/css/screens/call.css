@@ -93,7 +93,6 @@
   background-color: var(--grey-dark-color);
   height: 100%;
   width: 100%;
-  position: relative;
 }
 
 .video__peer-video,
@@ -195,6 +194,7 @@
     height: 50%;
   }
   .device-chat {
+    display: flex;
     flex: 1 1 40%;
     height: 100%;
     width: 100%;
@@ -224,5 +224,14 @@
   }
   .chat__send textarea {
     height: 100%;
+  }
+
+  .toggle-device,
+  .toggle-chat {
+    display: none;
+  }
+
+  .toggle-header {
+    left: 16px;
   }
 }

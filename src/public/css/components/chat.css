@@ -1,6 +1,7 @@
 .chat {
   display: none;
   padding: var(--space-default) 0;
+  width: 100%;
 }
 
 .chat.visible {

@@ -87,6 +87,8 @@ wsServer.on('connection', (socket) => {
   });
 });
 
+// function
+
 function getPublicRooms() {
   const {
     sockets: {

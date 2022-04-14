@@ -1,3 +1,3 @@
-# ZZoom
+# See See Call Call
 
-Zoom Clone using NodeJS, WebRTC and Websockets.
+Video call and chat service using NodeJS, WebRTC and Websockets.

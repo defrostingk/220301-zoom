@@ -125,7 +125,6 @@
   display: flex;
   height: 50%;
   width: 100%;
-  transition: all var(--transition-duration) ease-in-out;
   transform: translateX(-100%);
   flex-direction: column;
   justify-content: flex-end;
@@ -139,6 +138,10 @@
 .device-chat.visible {
   transform: translateX(0);
   opacity: 0.9;
+}
+
+.device-chat.anim {
+  transition: all var(--transition-duration) ease-in-out;
 }
 
 /* Device */

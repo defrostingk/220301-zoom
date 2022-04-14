@@ -14,6 +14,8 @@ const call = document.getElementById('call');
 const footerFixer = document.getElementById('footer-fixer');
 
 initScreen();
+
+// If you working on the call screen, call 'switchScreen'.
 // switchScreen();
 
 function initScreen() {
@@ -330,6 +332,7 @@ const toggleDeviceBtn = document.querySelector('.toggle-device');
 const toggleChatBtn = document.querySelector('.toggle-chat');
 
 toggleDeviceBtn.addEventListener('click', () => {
+  toggleAnimation(deviceAndChatContainer);
   if (chat.classList.contains('visible')) {
     toggleChatBtn.click();
   }
@@ -342,6 +345,7 @@ toggleDeviceBtn.addEventListener('click', () => {
 // Toggle chat
 
 toggleChatBtn.addEventListener('click', () => {
+  toggleAnimation(deviceAndChatContainer);
   if (deviceSelector.classList.contains('visible')) {
     toggleDeviceBtn.click();
   }
@@ -350,6 +354,13 @@ toggleChatBtn.addEventListener('click', () => {
   chat.style.display = 'flex';
   chat.classList.toggle('visible');
 });
+
+function toggleAnimation(element) {
+  element.classList.add('anim');
+  setTimeout(() => {
+    element.classList.remove('anim');
+  }, 300);
+}
 
 // Resize screen and remove visible class
 

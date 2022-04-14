@@ -335,6 +335,13 @@ const deviceSelector = document.getElementById('device');
 const toggleDeviceBtn = document.querySelector('.toggle-device');
 const toggleChatBtn = document.querySelector('.toggle-chat');
 
+function toggleAnimation(element) {
+  element.classList.add('anim');
+  setTimeout(() => {
+    element.classList.remove('anim');
+  }, 300);
+}
+
 toggleDeviceBtn.addEventListener('click', () => {
   toggleAnimation(deviceAndChatContainer);
   if (chat.classList.contains('visible')) {
@@ -357,13 +364,6 @@ toggleChatBtn.addEventListener('click', () => {
   chat.style.display = 'flex';
   chat.classList.toggle('visible');
 });
-
-function toggleAnimation(element) {
-  element.classList.add('anim');
-  setTimeout(() => {
-    element.classList.remove('anim');
-  }, 300);
-}
 
 // Resize screen and remove visible class
 window.addEventListener('resize', () => {
@@ -405,13 +405,11 @@ socket.on('update_rooms', (rooms) => {
   }
 });
 
-socket.on('already_in_room', () => {
-  alert(`You are already in the other room.\nYou can enter only one room.`);
-});
+socket.on('already_in_room', () =>
+  alert(`You are already in the other room.\nYou can enter only one room.`)
+);
 
-socket.on('is_full', (nickname, roomName) => {
-  alert(`${roomName} is full.`);
-});
+socket.on('is_full', (nickname, roomName) => alert(`${roomName} is full.`));
 
 socket.on('is_available', async (nickname, roomName) => {
   await initCall();
@@ -464,17 +462,13 @@ socket.on('offer', async (offer) => {
   socket.emit('answer', answer, roomName);
 });
 
-socket.on('answer', (answer) => {
-  myPeerConnection.setRemoteDescription(answer);
-});
+socket.on('answer', (answer) => myPeerConnection.setRemoteDescription(answer));
 
-socket.on('ice', (ice) => {
-  myPeerConnection.addIceCandidate(ice);
-});
+socket.on('ice', (ice) => myPeerConnection.addIceCandidate(ice));
 
-socket.on('leave_chat', (partnerNickname) => {
-  addMessage(`${partnerNickname} left`);
-});
+socket.on('leave_chat', (partnerNickname) =>
+  addMessage(`${partnerNickname} left`)
+);
 
 socket.on('leave_call', () => {
   try {
@@ -505,14 +499,11 @@ function makeConnection() {
       },
     ],
   });
-  myPeerConnection.addEventListener('icecandidate', handleIce);
-  myPeerConnection.addEventListener('addstream', handleAddStream);
-}
-
-function handleIce(data) {
-  socket.emit('ice', data.candidate, roomName);
-}
-
-function handleAddStream(data) {
-  peerFace.srcObject = data.stream;
+  myPeerConnection.addEventListener('icecandidate', (data) =>
+    socket.emit('ice', data.candidate, roomName)
+  );
+  myPeerConnection.addEventListener(
+    'addstream',
+    (data) => (peerFace.srcObject = data.stream)
+  );
 }

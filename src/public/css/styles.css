@@ -19,6 +19,7 @@
 
 * {
   box-sizing: border-box;
+  cursor: default;
 }
 
 html {
@@ -37,8 +38,27 @@ ul {
   list-style: none;
 }
 
-a {
+li span {
+  cursor: text;
+}
+
+a,
+a i,
+a span {
   text-decoration: none;
+  cursor: pointer;
+}
+
+input {
+  cursor: text;
+}
+
+textarea {
+  cursor: text;
+}
+
+button i {
+  cursor: pointer;
 }
 
 /* Hide Scroll */

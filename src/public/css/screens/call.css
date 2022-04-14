@@ -46,6 +46,7 @@
   color: var(--blue-color);
   width: 40%;
   border-right: var(--border-default);
+  border-color: var(--white-color);
 }
 
 .call__room-name i {

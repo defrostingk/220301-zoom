@@ -50,7 +50,6 @@
 
 .call__room-name i {
   margin-right: var(--space-default);
-  font-size: var(--font-medium);
 }
 
 .call__room-description {

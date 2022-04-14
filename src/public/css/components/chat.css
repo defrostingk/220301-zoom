@@ -69,6 +69,7 @@
   display: flex;
   padding: var(--space-default) 0 0 0;
   height: 100%;
+  overflow: hidden;
 }
 
 .chat__send textarea {

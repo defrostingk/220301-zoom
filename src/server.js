@@ -3,14 +3,19 @@ import { Server } from 'socket.io';
 import { instrument } from '@socket.io/admin-ui';
 import express from 'express';
 
+// App router
 const app = express();
-
 app.set('view engine', 'pug');
 app.set('views', process.cwd() + '/src/views');
 app.use('/public', express.static(process.cwd() + '/src/public'));
 app.get('/', (req, res) => res.render('home'));
 app.get('/*', (req, res) => res.redirect('/'));
 
+// Port
+const LOCAL_PORT = 4000;
+const PORT = process.env.PORT || LOCAL_PORT;
+
+// WebSockets server
 const httpServer = http.createServer(app);
 const wsServer = new Server(httpServer, {
   cors: {
@@ -21,46 +26,13 @@ const wsServer = new Server(httpServer, {
 instrument(wsServer, {
   auth: false,
 });
+httpServer.listen(PORT, () => {
+  if (PORT === LOCAL_PORT) {
+    console.log(`Listening on http://localhost:${PORT}`);
+  }
+});
 
-function getPublicRooms() {
-  const {
-    sockets: {
-      adapter: { sids, rooms },
-    },
-  } = wsServer;
-  const publicRooms = {};
-  rooms.forEach((_, key) => {
-    if (sids.get(key) === undefined) {
-      publicRooms[key] = countUserInRoom(key);
-    }
-  });
-  return publicRooms;
-}
-
-function countUserInRoom(roomName) {
-  return wsServer.sockets.adapter.rooms.get(roomName)?.size;
-}
-
-function isUserInRoom(userId) {
-  const {
-    sockets: {
-      adapter: { rooms },
-    },
-  } = wsServer;
-  const publicRooms = Object.keys(getPublicRooms());
-  let isUserinRoom = false;
-
-  publicRooms.forEach((roomName) => {
-    let users = rooms.get(roomName);
-    if (users.has(userId)) {
-      isUserinRoom = true;
-      return;
-    }
-  });
-
-  return isUserinRoom ? true : false;
-}
-
+// WebSockets
 wsServer.on('connection', (socket) => {
   socket['partnerNickname'] = 'Anonymous';
   socket['nickname'] = 'Anonymous';
@@ -115,12 +87,42 @@ wsServer.on('connection', (socket) => {
   });
 });
 
-const LOCAL_PORT = 4000;
-const PORT = process.env.PORT || LOCAL_PORT;
-
-function handelListen() {
-  if (PORT === LOCAL_PORT) {
-    console.log(`Listening on http://localhost:${PORT}`);
-  }
+function getPublicRooms() {
+  const {
+    sockets: {
+      adapter: { sids, rooms },
+    },
+  } = wsServer;
+  const publicRooms = {};
+  rooms.forEach((_, key) => {
+    if (sids.get(key) === undefined) {
+      publicRooms[key] = countUserInRoom(key);
+    }
+  });
+  return publicRooms;
 }
-httpServer.listen(PORT, handelListen);
+
+function countUserInRoom(roomName) {
+  return wsServer.sockets.adapter.rooms.get(roomName)?.size;
+}
+
+// Return If the user is "already" in the room.
+function isUserInRoom(userId) {
+  const {
+    sockets: {
+      adapter: { rooms },
+    },
+  } = wsServer;
+  const publicRooms = Object.keys(getPublicRooms());
+  let exist = false;
+
+  publicRooms.forEach((roomName) => {
+    let users = rooms.get(roomName);
+    if (users.has(userId)) {
+      exist = true;
+      return;
+    }
+  });
+
+  return exist;
+}

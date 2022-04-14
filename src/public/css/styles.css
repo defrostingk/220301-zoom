@@ -73,21 +73,3 @@ html::-webkit-scrollbar,
 .chat__send textarea::-webkit-scrollbar {
   display: none;
 }
-
-@media screen and (min-width: 768px) {
-  :root {
-    /* Font Size */
-    --font-header: 3rem;
-    --font-large: 2rem;
-    --font-medium: 1.5rem;
-    --font-small: 1rem;
-    --font-micro: 0.75rem;
-  }
-}
-
-@media screen and (max-width: 384px) {
-  :root {
-    /* Font Size */
-    --font-header: 1.5rem;
-  }
-}

@@ -14,7 +14,7 @@ const call = document.getElementById('call');
 const footerFixer = document.getElementById('footer-fixer');
 
 initScreen();
-// switchScreen();
+switchScreen();
 
 function initScreen() {
   call.style.display = 'none';

@@ -19,11 +19,11 @@
   --border-radius-checkbox: 0.3rem;
 
   /* Font Size */
-  --font-header: 3rem;
-  --font-large: 2rem;
-  --font-medium: 1.5rem;
-  --font-small: 1rem;
-  --font-micro: 0.75rem;
+  --font-header: 2rem;
+  --font-large: 1.5rem;
+  --font-medium: 1rem;
+  --font-small: 0.75rem;
+  --font-micro: 0.5rem;
 
   /* Size */
   --space-default: 0.75rem;

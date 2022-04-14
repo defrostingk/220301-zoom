@@ -122,11 +122,11 @@
 /* Device and chat */
 
 .device-chat {
+  display: flex;
   height: 50%;
   width: 100%;
   transition: all var(--transition-duration) ease-in-out;
   transform: translateX(-100%);
-  display: flex;
   flex-direction: column;
   justify-content: flex-end;
   position: fixed;

@@ -9,6 +9,7 @@
 
 .chat.visible {
   transform: translateX(0);
+  padding: 0;
 }
 
 /* Text */

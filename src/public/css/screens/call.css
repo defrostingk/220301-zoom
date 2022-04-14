@@ -131,8 +131,8 @@
   position: fixed;
   bottom: 0;
   background-color: transparent;
+  padding: var(--font-medium);
   padding-left: calc(var(--font-medium) * 5);
-  padding-right: var(--font-medium);
 }
 
 .device-chat.visible {
@@ -148,14 +148,13 @@
 .video__device {
   display: flex;
   flex-direction: column;
-  padding: var(--space-default);
+  justify-content: flex-end;
   height: var(--device-height);
   width: 100%;
 }
 
 .video__device.visible {
   background-color: transparent;
-  padding: var(--space-default) 0;
 }
 
 .video__mike,
@@ -246,6 +245,7 @@
     top: 0;
     right: 0;
     border-bottom: var(--border-default);
+    padding: var(--space-default);
   }
 
   .video__device select {

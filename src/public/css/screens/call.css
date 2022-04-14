@@ -131,8 +131,8 @@
   position: fixed;
   bottom: 0;
   background-color: transparent;
-  padding-left: 80px;
-  padding-right: 16px;
+  padding-left: calc(var(--font-medium) * 5);
+  padding-right: var(--font-medium);
 }
 
 .device-chat.visible {
@@ -187,21 +187,21 @@
 .toggle-header {
   position: absolute;
   font-size: var(--font-medium);
-  width: 48px;
-  height: 48px;
-  left: 16px;
+  width: calc(var(--font-medium) * 3);
+  height: calc(var(--font-medium) * 3);
+  left: var(--font-medium);
 }
 
 .toggle-chat {
-  bottom: 128px;
+  bottom: calc(var(--font-medium) * 8);
 }
 
 .toggle-device {
-  bottom: 72px;
+  bottom: calc(var(--font-medium) * 4.5);
 }
 
 .toggle-header {
-  bottom: 16px;
+  bottom: var(--font-medium);
   background-color: var(--red-color);
 }
 

@@ -297,14 +297,6 @@ function handleMessageSubmit(event) {
   messageSendBtn.disabled = true;
 }
 
-function handleMessageFocusIn() {
-  messageInput.placeholder = '';
-}
-
-function handleMessageFocusOut() {
-  messageInput.placeholder = 'message';
-}
-
 function handleMessageEnterKeydown(event) {
   const { keyCode } = event;
   const { shiftKey: SHIFT } = event;
@@ -322,8 +314,11 @@ function handleMessageEnterKeydown(event) {
 messageInput.addEventListener('input', () => {
   messageSendBtn.disabled = messageInput.value.trim() === '' ? true : false;
 });
-messageForm.addEventListener('focusin', handleMessageFocusIn);
-messageForm.addEventListener('focusout', handleMessageFocusOut);
+messageForm.addEventListener('focusin', () => (messageInput.placeholder = ''));
+messageForm.addEventListener(
+  'focusout',
+  () => (messageInput.placeholder = 'message')
+);
 messageForm.addEventListener('submit', handleMessageSubmit);
 messageForm.addEventListener('keydown', handleMessageEnterKeydown);
 

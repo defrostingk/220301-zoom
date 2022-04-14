@@ -1,21 +1,27 @@
 const socket = io();
 
-const main = document.querySelector('main');
-const footer = document.querySelector('footer');
-const header = document.querySelector('header');
-const home = document.getElementById('home');
-const myFace = document.getElementById('myFace');
-const peerFace = document.getElementById('peerFace');
-const muteBtn = document.getElementById('muteBtn');
-const cameraBtn = document.getElementById('cameraBtn');
-const camerasSelect = document.getElementById('cameras');
-const mikesSelect = document.getElementById('mikes');
-const call = document.getElementById('call');
+// Sections
 const footerFixer = document.getElementById('footer-fixer');
+const header = document.querySelector('header');
+const main = document.querySelector('main');
+const home = document.getElementById('home');
+const call = document.getElementById('call');
+const footer = document.querySelector('footer');
 
+// Global variables
+let myStream;
+let muted = true;
+let cameraOff = true;
+let nickname;
+let roomName;
+let myPeerConnection;
+let myDataChannel;
+
+// If you work on the home screen, call 'initScreen'.
+// Or for initiating, call 'initScreen'.
 initScreen();
 
-// If you working on the call screen, call 'switchScreen'.
+// If you work on the call screen, call 'switchScreen'.
 // switchScreen();
 
 function initScreen() {
@@ -29,16 +35,11 @@ function switchScreen() {
   footer.style.display = 'none';
 }
 
-let myStream;
-let muted = true;
-let cameraOff = true;
-let nickname;
-let roomName;
-let myPeerConnection;
-let myDataChannel;
-
-const ALIGN_LEFT = 'left';
-const ALIGN_RIGHT = 'right';
+// Select mike & camera
+const camerasSelect = document.getElementById('cameras');
+const mikesSelect = document.getElementById('mikes');
+const myFace = document.getElementById('myFace');
+const peerFace = document.getElementById('peerFace');
 
 async function getDevices() {
   await getCameras();
@@ -120,19 +121,7 @@ async function getMedia(deviceId) {
   }
 }
 
-function handleMuteClick() {
-  const curState = myStream.getAudioTracks()[0].enabled;
-  myStream.getAudioTracks()[0].enabled = !curState;
-  muteBtn.innerText = muted ? 'Mute' : 'Unmute';
-  muted = !muted;
-}
-function handleCameraClick() {
-  const curState = myStream.getVideoTracks()[0].enabled;
-  myStream.getVideoTracks()[0].enabled = !curState;
-  cameraBtn.innerText = cameraOff ? 'Cam Off' : 'Cam On';
-  cameraOff = !cameraOff;
-}
-
+// Change mike & camera
 async function handleCameraChange() {
   await getMedia(camerasSelect.value);
   if (myPeerConnection) {
@@ -143,6 +132,7 @@ async function handleCameraChange() {
     videoSender.replaceTrack(videoTrack);
   }
 }
+
 async function handleMikeChange() {
   await getMedia(mikesSelect.value);
   if (myPeerConnection) {
@@ -154,12 +144,35 @@ async function handleMikeChange() {
   }
 }
 
+// mike & camera on/off
+const muteBtn = document.getElementById('muteBtn');
+const cameraBtn = document.getElementById('cameraBtn');
+
+function handleMuteClick() {
+  const curState = myStream.getAudioTracks()[0].enabled;
+  myStream.getAudioTracks()[0].enabled = !curState;
+  muteBtn.innerText = muted ? 'Mute' : 'Unmute';
+  muted = !muted;
+}
+
+function handleCameraClick() {
+  const curState = myStream.getVideoTracks()[0].enabled;
+  myStream.getVideoTracks()[0].enabled = !curState;
+  cameraBtn.innerText = cameraOff ? 'Cam Off' : 'Cam On';
+  cameraOff = !cameraOff;
+}
+
+function initButton() {
+  muteBtn.innerText = muted ? 'Unmute' : 'Mute';
+  cameraBtn.innerText = cameraOff ? 'Cam On' : 'Cam Off';
+}
+
 muteBtn.addEventListener('click', handleMuteClick);
 cameraBtn.addEventListener('click', handleCameraClick);
 camerasSelect.addEventListener('input', handleCameraChange);
 mikesSelect.addEventListener('input', handleMikeChange);
 
-// saveNickname form
+// Save nickname & mike and camera on/off
 
 const saveNickname = document.getElementById('saveNickname');
 const saveNicknameForm = saveNickname.querySelector('form');
@@ -188,14 +201,9 @@ function setDevices() {
   cameraOff = cameraOffCheck.checked;
 }
 
-function initButton() {
-  muteBtn.innerText = muted ? 'Unmute' : 'Mute';
-  cameraBtn.innerText = cameraOff ? 'Cam On' : 'Cam Off';
-}
-
 saveNicknameForm.addEventListener('submit', handleSaveSubmit);
 
-// enterRoom form (join a room)
+// Enter room (join a room)
 
 const enterRoomForm = enterRoom.querySelector('form');
 const callHeader = document.getElementById('callHeader');
@@ -225,18 +233,19 @@ function handleEnterRoomSubmit(event) {
     socket.emit('check_room', nickname, roomName);
     roomNameInput.value = '';
   } else {
-    alert('You have to your nickname first.');
+    alert('You have to save your nickname first.');
   }
 }
 
 enterRoomForm.addEventListener('submit', handleEnterRoomSubmit);
 
-// Chat Form
-
+// Chat
 const chat = document.getElementById('chat');
 const messageForm = document.getElementById('message');
 const messageInput = messageForm.querySelector('textarea');
 const messageSendBtn = messageForm.querySelector('button');
+const ALIGN_LEFT = 'left';
+const ALIGN_RIGHT = 'right';
 messageSendBtn.disabled = true;
 
 function addMessage(message, alignment, sender) {
@@ -258,13 +267,18 @@ function addMessage(message, alignment, sender) {
     messageSpan.classList.add('chat__message');
     li.appendChild(messageSpan);
 
-    if (alignment === 'left') {
-      li.classList.add('chat--align-left');
-    } else if (alignment === 'right') {
-      li.classList.add('chat--align-right');
-    } else {
-      li.classList.add('chat--align-center');
+    switch (alignment) {
+      case 'left':
+        li.classList.add('chat--align-left');
+        break;
+      case 'right':
+        li.classList.add('chat--align-right');
+        break;
+      default:
+        li.classList.add('chat--align-center');
+        break;
     }
+
     ul.appendChild(li);
     ul.scrollTop = ul.scrollHeight;
   }
@@ -280,6 +294,7 @@ function handleMessageSubmit(event) {
   } catch (e) {
     console.log(e);
   }
+  messageSendBtn.disabled = true;
 }
 
 function handleMessageFocusIn() {
@@ -292,33 +307,27 @@ function handleMessageFocusOut() {
 
 function handleMessageEnterKeydown(event) {
   const { keyCode } = event;
-  const { shiftKey } = event;
-  if (keyCode === 13 && !shiftKey) {
+  const { shiftKey: SHIFT } = event;
+  const ENTER = 13;
+  if (keyCode === ENTER && !SHIFT) {
     event.preventDefault();
     messageSendBtn.click();
   }
-  if (keyCode === 13 && shiftKey) {
+  if (keyCode === ENTER && SHIFT) {
     event.preventDefault();
     messageInput.value += '\n';
   }
 }
 
-function handleMessageWrite() {
-  if (messageInput.value.trim() === '') {
-    messageSendBtn.disabled = true;
-  } else {
-    messageSendBtn.disabled = false;
-  }
-}
-
-messageInput.addEventListener('input', handleMessageWrite);
+messageInput.addEventListener('input', () => {
+  messageSendBtn.disabled = messageInput.value.trim() === '' ? true : false;
+});
 messageForm.addEventListener('focusin', handleMessageFocusIn);
 messageForm.addEventListener('focusout', handleMessageFocusOut);
 messageForm.addEventListener('submit', handleMessageSubmit);
 messageForm.addEventListener('keydown', handleMessageEnterKeydown);
 
 // Toggle header
-
 const toggleHeaderBtn = document.querySelector('.toggle-header');
 toggleHeaderBtn.addEventListener('click', () => {
   const callHeader = document.querySelector('.call__header');
@@ -343,7 +352,6 @@ toggleDeviceBtn.addEventListener('click', () => {
 });
 
 // Toggle chat
-
 toggleChatBtn.addEventListener('click', () => {
   toggleAnimation(deviceAndChatContainer);
   if (deviceSelector.classList.contains('visible')) {
@@ -363,7 +371,6 @@ function toggleAnimation(element) {
 }
 
 // Resize screen and remove visible class
-
 window.addEventListener('resize', () => {
   const width = window.innerWidth;
   if (width >= 768) {
@@ -375,8 +382,7 @@ window.addEventListener('resize', () => {
   }
 });
 
-// Socket Code
-
+// Web Sockets
 socket.on('update_rooms', (rooms) => {
   const roomList = document.getElementById('roomList');
   roomList.innerText = '';
@@ -411,6 +417,7 @@ socket.on('already_in_room', () => {
 socket.on('is_full', (nickname, roomName) => {
   alert(`${roomName} is full.`);
 });
+
 socket.on('is_available', async (nickname, roomName) => {
   await initCall();
   setRoomName();
@@ -421,6 +428,7 @@ socket.on('set_header', (partnerNickname) => {
   setCallPartner(partnerNickname);
   socket.emit('header', nickname, partnerNickname, roomName);
 });
+
 socket.on('header', (myNickname) => {
   setCallPartner(myNickname);
   socket.emit('partner_nickname', myNickname);
@@ -487,8 +495,7 @@ socket.on('leave_call', () => {
   socket.emit('join_room', nickname, roomName);
 });
 
-// RTC Code
-
+// WebRTC
 function makeConnection() {
   myPeerConnection = new RTCPeerConnection({
     iceServers: [

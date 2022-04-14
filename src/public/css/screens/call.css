@@ -21,7 +21,7 @@
   flex-wrap: wrap;
   position: fixed;
   top: 0;
-  background-color: var(--white-color);
+  background-color: var(--grey-light-color);
   visibility: hidden;
   transform: translateY(calc(var(--font-small) * -3.5));
   transition: all var(--transition-duration) ease-in-out;
@@ -72,6 +72,10 @@
   position: absolute;
   right: 0;
   top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--padding-text);
 }
 
 .call__close button {
@@ -80,8 +84,8 @@
   font-size: var(--font-medium);
   border-radius: var(--border-radius);
   box-shadow: none;
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   padding: 0;
   transition: all var(--transition-duration) ease-in-out;

@@ -214,11 +214,6 @@ async function initCall() {
   await getMedia();
 }
 
-async function restartCall() {
-  makeConnection();
-  await getMedia();
-}
-
 function setRoomName() {
   const title = callHeader.querySelectorAll('span');
   title[0].innerText = `${roomName}`;
@@ -484,10 +479,15 @@ socket.on('leave_call', async () => {
   } catch (e) {
     console.log(e);
   }
-  setRoomName();
   await restartCall();
-  socket.emit('join_room', nickname, roomName);
 });
+
+async function restartCall() {
+  setRoomName();
+  makeConnection();
+  await getMedia();
+  socket.emit('join_room', nickname, roomName);
+}
 
 // WebRTC
 function makeConnection() {

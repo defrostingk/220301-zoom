@@ -214,7 +214,7 @@ async function initCall() {
   await getMedia();
 }
 
-function setRoomName() {
+function setCallHeader() {
   const title = callHeader.querySelectorAll('span');
   title[0].innerText = `${roomName}`;
   title[1].innerText = 'Waiting for a call partner...';
@@ -413,7 +413,7 @@ socket.on('is_full', (nickname, roomName) => alert(`${roomName} is full.`));
 
 socket.on('is_available', async (nickname, roomName) => {
   await initCall();
-  setRoomName();
+  setCallHeader();
   socket.emit('join_room', nickname, roomName);
 });
 
@@ -483,7 +483,7 @@ socket.on('leave_call', async () => {
 });
 
 async function restartCall() {
-  setRoomName();
+  setCallHeader();
   makeConnection();
   await getMedia();
   socket.emit('join_room', nickname, roomName);

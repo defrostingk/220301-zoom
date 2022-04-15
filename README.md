@@ -1,4 +1,4 @@
-# 😄See See Call Call📞
+# 😄 See See Call Call 📞
 
 <a href="https://seeseecallcall.herokuapp.com/" target="_blank">Go to use 'See See Call Call'</a>
 
@@ -12,13 +12,13 @@
 
 ---
 
-## Description
+## Description 📝
 
 <br>
 
 Video call and chat service using NodeJS, WebRTC and Websockets. It has responsive screens for mobile(a narrow screen) and desktop(a wide screen, minimum width is 768px) environment.
 
-- Mobile (A narrow screen)
+- Mobile (A narrow screen) 📱
 
   - Home screen
 
@@ -28,7 +28,7 @@ Video call and chat service using NodeJS, WebRTC and Websockets. It has responsi
 
     ![mobile_call](https://user-images.githubusercontent.com/95136896/163564646-853f0b42-7c51-4abc-a775-5621e73603e1.png)
 
-- Desktop (A wide screen)
+- Desktop (A wide screen) 🖥
 
   - Home screen
 
@@ -40,7 +40,7 @@ Video call and chat service using NodeJS, WebRTC and Websockets. It has responsi
 
 ---
 
-## Usage In Local Environment
+## Usage In Local Environment ⌨
 
 <br>
 
@@ -77,7 +77,7 @@ Video call and chat service using NodeJS, WebRTC and Websockets. It has responsi
 
 ---
 
-## Files
+## Files 📁
 
 <br>
 

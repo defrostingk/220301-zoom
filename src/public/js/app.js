@@ -214,6 +214,11 @@ async function initCall() {
   await getMedia();
 }
 
+async function restartCall() {
+  makeConnection();
+  await getMedia();
+}
+
 function setRoomName() {
   const title = callHeader.querySelectorAll('span');
   title[0].innerText = `${roomName}`;
@@ -470,7 +475,7 @@ socket.on('leave_chat', (partnerNickname) =>
   addMessage(`${partnerNickname} left`)
 );
 
-socket.on('leave_call', () => {
+socket.on('leave_call', async () => {
   try {
     peerFace.srcObject.getVideoTracks().forEach((track) => {
       track.stop();
@@ -480,7 +485,7 @@ socket.on('leave_call', () => {
     console.log(e);
   }
   setRoomName();
-  makeConnection();
+  await restartCall();
   socket.emit('join_room', nickname, roomName);
 });
 

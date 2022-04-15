@@ -4,8 +4,6 @@
 
 ## Contents
 
-<br>
-
 - [Description](#description)
 
 - [Usage In Local Environment](#usage-in-local-environment)

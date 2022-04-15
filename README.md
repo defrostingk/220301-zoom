@@ -1,8 +1,10 @@
-# See See Call Call
+# 😄See See Call Call📞
 
 <a href="https://seeseecallcall.herokuapp.com/" target="_blank">Go to use 'See See Call Call'</a>
 
 ## Contents
+
+<br>
 
 - [Description](#description)
 
@@ -13,6 +15,8 @@
 ---
 
 ## Description
+
+<br>
 
 Video call and chat service using NodeJS, WebRTC and Websockets. It has responsive screens for mobile(a narrow screen) and desktop(a wide screen, minimum width is 768px) environment.
 
@@ -40,6 +44,8 @@ Video call and chat service using NodeJS, WebRTC and Websockets. It has responsi
 
 ## Usage In Local Environment
 
+<br>
+
 - prerequisite
 
   Node.js, webcam(option), mike(option)
@@ -65,7 +71,7 @@ Video call and chat service using NodeJS, WebRTC and Websockets. It has responsi
      npm run build
      ```
 
-  2. Run 'See See Call Call' using the converted code
+  2. Run 'See See Call Call' using the converted code.
 
      ```
      npm start
@@ -74,6 +80,8 @@ Video call and chat service using NodeJS, WebRTC and Websockets. It has responsi
 ---
 
 ## Files
+
+<br>
 
 - src
 
@@ -121,10 +129,10 @@ Video call and chat service using NodeJS, WebRTC and Websockets. It has responsi
 
     - js
 
-      - app.js: Handling events, features, making RTC Peer connection
+      - app.js: Handling events, features, making peer to peer connection
 
   - views
 
-    - home.pug: Mark up using pug
+    - home.pug: Mark up using Pug
 
-  - server.js: Settings for the app, WebSockets server(signaling server), and handling events.
+  - server.js: Settings for the app, WebSockets server(signaling server), and handling events

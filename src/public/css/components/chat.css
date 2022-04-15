@@ -33,6 +33,7 @@
   padding: var(--padding-text);
   font-size: var(--font-small);
   word-break: break-word;
+  width: fit-content;
 }
 
 .chat__message {

@@ -2,17 +2,17 @@
 
 <a href="https://seeseecallcall.herokuapp.com/" target="_blank">Go to use 'See See Call Call'</a>
 
-## Contents
+# Contents
 
-- [Description](##description)
+- [Description](#description)
 
-- [Usage In Local Environment](##usage-in-local-environment)
+- [Usage In Local Environment](#usage-in-local-environment)
 
-- [Files](##files)
+- [Files](#files)
 
 ---
 
-## Description 📝
+# Description 📝
 
 <br>
 
@@ -40,7 +40,7 @@ Video call and chat service using NodeJS, WebRTC and Websockets. It has responsi
 
 ---
 
-## Usage In Local Environment ⌨
+# Usage In Local Environment ⌨
 
 <br>
 
@@ -77,7 +77,7 @@ Video call and chat service using NodeJS, WebRTC and Websockets. It has responsi
 
 ---
 
-## Files 📁
+# Files 📁
 
 <br>
 
